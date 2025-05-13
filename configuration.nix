@@ -121,7 +121,7 @@ in
     discord spotify bleachbit vlc gimp audacity obs-studio
     cheese lutris prismlauncher gnome-tweaks gnome-extension-manager
     podman distrobox telegram-desktop gnome-menus gobject-introspection
-    neofetch gnome-terminal corefonts
+    neofetch gnome-terminal corefonts powertop unstable.godot
   ];
 
   environment.variables.GI_TYPELIB_PATH = "${pkgs.gnome-menus}/lib/girepository-1.0";

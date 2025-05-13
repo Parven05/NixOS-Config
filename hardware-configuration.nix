@@ -81,14 +81,9 @@
   # Power Management
   ##############################################
 
-  services.power-profiles-daemon.enable = false; # Disable to avoid conflict with TLP
-  services.tlp.enable = true;
-
-  services.tlp.settings = {
-    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-    CPU_SCALING_GOVERNOR_ON_AC = "performance";
-  };
-
+  services.power-profiles-daemon.enable = false;
+  services.auto-cpufreq.enable = true;
+  powerManagement.powertop.enable = true;
   services.thermald.enable = lib.mkDefault true;
 
   ##############################################
