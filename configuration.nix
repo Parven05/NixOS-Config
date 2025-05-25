@@ -5,14 +5,22 @@
 
 let
   unstable = import <nixos-unstable> { config.allowUnfree = true; };
+  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
 in
+
 {
   ##############################################
-  # Imports
+  # System Imports
   ##############################################
   imports = [
     ./hardware-configuration.nix
+    (import "${home-manager}/nixos")
   ];
+
+  home-manager.useUserPackages = true;
+  home-manager.useGlobalPkgs = true;
+  home-manager.backupFileExtension = "backup";
+  home-manager.users.parven = import ./home.nix;
 
   ##############################################
   # System Settings
@@ -25,7 +33,6 @@ in
   i18n.defaultLocale = "en_US.UTF-8";
 
   hardware.firmware = with pkgs; [ linux-firmware ];
-
   nixpkgs.config.allowUnfree = true;
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "24.11";
@@ -37,8 +44,6 @@ in
     hostName = "nixos";
     networkmanager.enable = true;
     firewall.enable = true;
-    # firewall.allowedTCPPorts = [ ... ];
-    # firewall.allowedUDPPorts = [ ... ];
   };
 
   hardware.bluetooth = {
@@ -56,30 +61,41 @@ in
     description = "Parven";
     initialPassword = "parven5102003"; # Change to hashedPassword in production
     extraGroups = [ "wheel" "networkmanager" "video" "bluetooth" ];
-    packages = with pkgs; [ ];
   };
 
   security.sudo.enable = true;
 
   ##############################################
-  # Display & Desktop
+  # Display Server & Desktop Environment
   ##############################################
   services.xserver = {
     enable = true;
+
+    # GNOME desktop
     desktopManager.gnome.enable = true;
+
+    # GDM display manager
     displayManager.gdm.enable = true;
+
     xkb = {
       layout = "us";
       variant = "";
     };
   };
 
+  services.xserver.excludePackages = [pkgs.xterm];
   services.displayManager.autoLogin = {
     enable = true;
     user = "parven";
   };
 
-  # GNOME bloat cleanup
+  # Use Kitty as terminal in GNOME extension
+  programs.nautilus-open-any-terminal = {
+    enable = true;
+    terminal = "kitty";
+  };
+
+  # Remove unnecessary GNOME apps
   environment.gnome.excludePackages = with pkgs; [
     epiphany yelp totem geary seahorse snapshot gnome-console
     gnome-tour gnome-contacts gnome-maps gnome-weather gnome-music
@@ -100,11 +116,10 @@ in
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # jack.enable = true;
   };
 
   ##############################################
-  # Applications & Gaming
+  # Gaming Support
   ##############################################
   programs.steam = {
     enable = true;
@@ -116,12 +131,20 @@ in
   programs.gamemode.enable = true;
   programs.nix-ld.enable = true;
 
+  ##############################################
+  # System-Wide Packages
+  ##############################################
   environment.systemPackages = with pkgs; [
-    wget git github-desktop vscode bitwarden-desktop brave
+    wget git github-desktop bitwarden-desktop brave
     discord spotify bleachbit vlc gimp audacity obs-studio
     cheese lutris prismlauncher gnome-tweaks gnome-extension-manager
     podman distrobox telegram-desktop gnome-menus gobject-introspection
-    neofetch gnome-terminal corefonts powertop unstable.godot
+    neofetch corefonts powertop kitty xdg-utils dconf-editor
+    helix cava
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-33.4.11"
   ];
 
   environment.variables.GI_TYPELIB_PATH = "${pkgs.gnome-menus}/lib/girepository-1.0";
@@ -133,6 +156,5 @@ in
     openssh.enable = true;
     printing.enable = true;
     flatpak.enable = true;
-    # xserver.libinput.enable = true; # Enable touchpad if not already by desktopManager
   };
 }
