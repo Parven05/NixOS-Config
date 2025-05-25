@@ -8,11 +8,6 @@
 
   # Enable Bash and customize shell init
   programs.bash.enable = true;
-  programs.git = {
-    enable = true;
-    userName = "Parven";
-    userEmail = "parven5@proton.me";
-  };
   
   # Set session environment variables (for desktop sessions)
   home.sessionVariables = {
