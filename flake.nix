@@ -8,11 +8,11 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
 
-    stylix.url = "github:danth/stylix";
-    stylix.inputs.nixpkgs.follows = "nixpkgs-stable";
+    #stylix.url = "github:danth/stylix";
+    #stylix.inputs.nixpkgs.follows = "nixpkgs-stable";
   };
 
-  outputs = { self, nixpkgs-stable, nixpkgs-unstable, home-manager, stylix, ... }@inputs: let
+  outputs = { self, nixpkgs-stable, nixpkgs-unstable, home-manager, /*stylix,*/ ... }@inputs: let
     system = "x86_64-linux";
 
     pkgsStable = import nixpkgs-stable {
@@ -38,8 +38,7 @@
         modules = [
           ./hosts/configuration.nix
 
-          stylix.nixosModules.stylix
-          stylix.homeManagerModules.stylix
+          #stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
 
           {
