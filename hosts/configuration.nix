@@ -12,6 +12,7 @@
   ##############################################
   imports = [
     ./hardware-configuration.nix
+    ./modules/networking.nix
   ];
 
   ##############################################
@@ -32,11 +33,6 @@
   ##############################################
   # Networking & Bluetooth
   ##############################################
-  networking = {
-    hostName = "nixos";
-    networkmanager.enable = true;
-    firewall.enable = true;
-  };
 
   hardware.bluetooth = {
     enable = true;

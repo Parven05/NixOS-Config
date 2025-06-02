@@ -36,8 +36,7 @@
       nixos = nixpkgs-stable.lib.nixosSystem {
         inherit system;
         modules = [
-          ./hosts/configuration.nix
-
+          ./hosts/configuration.nix          
           #stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
 
