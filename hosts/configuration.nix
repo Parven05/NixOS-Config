@@ -13,6 +13,7 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/networking.nix
+    ./modules/bluetooth.nix
   ];
 
   ##############################################
@@ -29,17 +30,6 @@
   nixpkgs.config.allowUnfree = true;
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "24.11";
-
-  ##############################################
-  # Networking & Bluetooth
-  ##############################################
-
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-  };
-
-  services.blueman.enable = true;
 
   ##############################################
   # User Setup
