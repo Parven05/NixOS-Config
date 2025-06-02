@@ -16,6 +16,7 @@
     ./modules/networking.nix
     ./modules/bluetooth.nix
     ./modules/user.nix
+    ./modules/gnome.nix
   ];
 
   ##############################################
