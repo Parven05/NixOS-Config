@@ -12,8 +12,10 @@
   ##############################################
   imports = [
     ./hardware-configuration.nix
+     # Modules
     ./modules/networking.nix
     ./modules/bluetooth.nix
+    ./modules/user.nix
   ];
 
   ##############################################
@@ -30,18 +32,6 @@
   nixpkgs.config.allowUnfree = true;
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "24.11";
-
-  ##############################################
-  # User Setup
-  ##############################################
-  users.users.parven = {
-    isNormalUser = true;
-    description = "Parven";
-    initialPassword = "parven5102003"; # Change to hashedPassword in production
-    extraGroups = [ "wheel" "networkmanager" "video" "bluetooth" ];
-  };
-
-  security.sudo.enable = true;
 
   ##############################################
   # Display Server & Desktop Environment
