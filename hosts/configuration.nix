@@ -21,6 +21,7 @@
     ./modules/bluetooth.nix
     ./modules/user.nix
     ./modules/gnome.nix
+    ./modules/audio.nix
   ];
 
   ##############################################
@@ -30,18 +31,6 @@
 
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.11";
-
-  ##############################################
-  # Audio
-  ##############################################
-  security.rtkit.enable = true;
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
 
   ##############################################
   # Gaming Support
