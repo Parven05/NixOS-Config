@@ -8,5 +8,9 @@ environment.systemPackages = with pkgs; [
   gobject-introspection neofetch corefonts powertop kitty xdg-utils
   dconf-editor helix cava tree blender
   ];
+  
+ nixpkgs.config.permittedInsecurePackages = [
+    "electron-33.4.11"
+  ];
 
 }

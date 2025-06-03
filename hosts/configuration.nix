@@ -13,7 +13,7 @@
   imports = [
     ./hardware-configuration.nix
      # Modules
-
+    ./modules/kernel.nix
     ./modules/bootloader.nix
     ./modules/firmware.nix
     ./modules/timezone.nix
@@ -27,22 +27,7 @@
     ./modules/services.nix
   ];
 
-  ##############################################
-  # System Settings
-  ##############################################
-  boot.kernelPackages = pkgs.linuxPackages_6_12;
-
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.11";
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-33.4.11"
-  ];
-
-  environment.variables.GI_TYPELIB_PATH = "${pkgs.gnome-menus}/lib/girepository-1.0";
-
-  ##############################################
-  # Extra Services
-  ##############################################
 
 }
