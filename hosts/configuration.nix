@@ -24,6 +24,7 @@
     ./modules/audio.nix
     ./modules/gaming.nix
     ./modules/systempkgs.nix
+    ./modules/services.nix
   ];
 
   ##############################################
@@ -43,9 +44,5 @@
   ##############################################
   # Extra Services
   ##############################################
-  services = {
-    openssh.enable = true;
-    printing.enable = true;
-    flatpak.enable = true;
-  };
+
 }
