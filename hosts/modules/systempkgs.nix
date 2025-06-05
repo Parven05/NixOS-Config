@@ -6,7 +6,7 @@ environment.systemPackages = with pkgs; [
   audacity obs-studio cheese lutris prismlauncher gnome-tweaks
   gnome-extension-manager podman distrobox telegram-desktop gnome-menus
   gobject-introspection neofetch corefonts powertop kitty xdg-utils
-  dconf-editor helix cava tree blender
+  dconf-editor helix cava tree blender rar gparted
   ];
   
  nixpkgs.config.permittedInsecurePackages = [

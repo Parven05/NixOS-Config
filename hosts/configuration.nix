@@ -19,6 +19,8 @@
     ./modules/systempkgs.nix
     ./modules/services.nix
   ];
-  
+
+  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.11";
+
 }
