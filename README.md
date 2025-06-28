@@ -1,4 +1,4 @@
-![nixos-linux-seeklogo](https://github.com/user-attachments/assets/6b4b2fa0-fc19-4179-a152-5feea30b1bb7)
+![nix](https://github.com/user-attachments/assets/e913a56c-137f-4622-92e3-37491d7b18a4)
 
 # NixOS-Config
 Lenovo IdeaPad Gaming 3 15arh05 - Flake Setup
