@@ -18,7 +18,5 @@ Lenovo IdeaPad Gaming 3 15arh05 - Flake Setup
 └── user
     └── home.nix
 ```
-
-## **Implementation**
 The `.dotfiles` directory separates system-wide settings (`hosts`) from user-specific configurations (`user`).  
 Within `hosts`, core system and hardware settings are organized, while the `modules` folder breaks down features like audio, bootloader, and packages into smaller, manageable files.  
