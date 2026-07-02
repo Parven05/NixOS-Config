@@ -1,11 +1,125 @@
-# NixOS-Config
-Lenovo IdeaPad Gaming 3 15arh05 - Flake Setup
+# Pi Nix
+Opinionated NixOS Flake Config
 
-![nix](https://github.com/user-attachments/assets/bd9ae86e-6bcb-4bb9-bb62-7f08e5c9ca40)
-
-# Looks
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3573444b-27fa-40e0-ba24-edf625e35b43" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/18a5a10c-b13a-4bf6-97ba-16af294103c1" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/2c612c71-da2a-4cda-be2c-fecb73fd89a3" />
+<p align="center">
+<img width="246" height="246" alt="pi-nix" src="https://github.com/user-attachments/assets/faceaec5-349b-4307-be0b-34a3ad3fb7b0" />
+</p>
 
 
+# Usage
+
+## [nh](https://github.com/nix-community/nh)
+```nix
+programs.nh = {
+  enable = true;
+  clean.enable = true;
+  clean.extraArgs = "--keep-since 4d --keep 3";
+  flake = "/home/parven/dotfiles";
+};
+```
+Sets the flake path in `configuration.nix` so `nh os switch` needs no args, and auto cleans old generations, keeping the last 4 days or 3 generations. Aliased as `build` and `clean` in Fish.
+
+<img width="1195" height="658" alt="nh rebuild" src="https://github.com/user-attachments/assets/bd55db83-79ff-4adb-8885-de4dd7ff5d0c" />
+
+## fish
+```nix
+programs.fish.enable = true;
+users.users.parven.shell = pkgs.fish;
+```
+```nix
+programs.fish = {
+  enable = true;
+  interactiveShellInit = ''
+    zoxide init fish | source
+    if test "$TERM" = "xterm-kitty"
+      fastfetch
+    end
+  '';
+  shellAliases = {
+    build = "nh os switch /home/parven/dotfiles";
+    clean = "nh clean all";
+    ls = "eza --icons --group-directories-first";
+    cat = "bat";
+  };
+};
+```
+Enabled system wide as the default shell, then configured per user with [zoxide](https://github.com/ajeetdsouza/zoxidehttps://github.com/ajeetdsouza/zoxide) init, fastfetch on Kitty launch, and [eza](https://github.com/eza-community/eza), [bat](https://github.com/sharkdp/bat) aliases.
+
+<img width="1195" height="658" alt="fish shell" src="https://github.com/user-attachments/assets/fb14f7a7-1c0f-4480-aed3-184d4be4e9d2" />
+
+## Home Manager
+```nix
+home-manager = {
+  useGlobalPkgs = true;
+  useUserPackages = true;
+  users.parven = import ./home.nix;
+  backupFileExtension = "backup";
+};
+```
+```nix
+home.file.".config/kitty".source = ./config/kitty;
+home.file.".config/fastfetch".source = ./config/fastfetch;
+```
+Shares the system `pkgs` for faster builds and safer rebuilds. `home.nix` sets git identity and symlinks kitty and fastfetch configs into `~/.config`.
+
+## [stylix](https://github.com/danth/stylix)
+```nix
+stylix.enable = true;
+stylix.image = ./wallpapers/nix-wallpaper-binary-black_8k.png;
+stylix.polarity = "dark";
+stylix.base16Scheme = {
+  base00 = "111418";
+  base05 = "c9d1d9";
+  base0D = "6ea8e0";
+  # ...
+};
+```
+Applies a custom base16 dark scheme system wide to every Stylix aware app. Kitty, fastfetch, and btop are themed through Stylix targets.
+
+<img width="1920" height="1080" alt="stylix theme" src="https://github.com/user-attachments/assets/17be5da8-83ac-46d3-83a5-5329566a958d" />
+
+## [direnv](https://github.com/direnv/direnv)
+```nix
+programs.direnv = {
+  enable = true;
+  nix-direnv.enable = true;
+};
+```
+Caches flake dev shell evaluations per directory so `cd` into a project doesn't re-evaluate the whole shell every time.
+
+## [nixfmt](https://github.com/NixOS/nixfmt)
+```nix
+environment.systemPackages = with pkgs; [
+  nixfmt
+  vscode
+];
+```
+Installed as a package but needs an editor extension to hook it up. For VSCode, install [Nix IDE](https://github.com/nix-community/vscode-nix-ide) and add to `settings.json`:
+```json
+{
+  "nix.formatterPath": "nixfmt",
+  "[nix]": {
+    "editor.defaultFormatter": "jnoortheen.nix-ide",
+    "editor.formatOnSave": true
+  }
+}
+```
+For other editors like Neovim, see [nixfmt with nixd](https://github.com/NixOS/nixfmt#neovim--nixd).
+
+<img width="701" height="681" alt="image" src="https://github.com/user-attachments/assets/aef4b164-3ae9-4628-9833-6102fac57d87" />
+
+Formatter and syntax highlighting for editing Nix files.
+
+## [starship](https://starship.rs/)
+```nix
+programs.starship = {
+  enable = true;
+  settings = {
+    add_newline = false;
+    line_break.disabled = true;
+  };
+};
+```
+Minimal prompt config, no leading blank line or line break before the prompt.
+
+<img width="1195" height="119" alt="starship prompt" src="https://github.com/user-attachments/assets/6b0b3074-13ff-402f-9c8f-a3f2f1e95df4" />
