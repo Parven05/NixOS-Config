@@ -1,7 +1,7 @@
 # Pi Nix
 
 <p align="center">
-<img width="246" height="246" alt="pi-nix" src="https://github.com/user-attachments/assets/faceaec5-349b-4307-be0b-34a3ad3fb7b0" />
+<img width="246" height="246" alt="Pi-nix" src="https://github.com/user-attachments/assets/4651e2dc-f392-45db-aa03-b3960e476b78" />
 </p>
 
 <h3 align="center">
