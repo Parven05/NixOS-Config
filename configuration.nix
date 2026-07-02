@@ -71,12 +71,16 @@
     gnome-extension-manager
     vscode
     btop
+    cmake
+    gnumake
+    glib.dev
   ] ++ (with pkgs.gnomeExtensions; [
     blur-my-shell
     burn-my-windows
     compiz-alike-magic-lamp-effect
     compiz-windows-effect
-    dash-to-dock
+    dash2dock-lite
+    search-light
     tray-icons-reloaded
     user-themes
   ]);
