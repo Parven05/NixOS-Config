@@ -8,53 +8,50 @@
         }
     },
     "display": {
-        "separator": " ── ",
-        "key": {
-            "width": 15
-        }
+        "separator": "  " // Removes the ugly lines, uses clean spacing instead
     },
     "modules": [
         "break",
         "break",
         {
             "type": "title",
-            "key": "  ",
-            "keyColor": "34", // Cyan
+            "key": " ",
+            "keyColor": "34",
             "format": "{user-name}@{host-name}"
         },
         {
             "type": "os",
-            "key": "  ",
+            "key": " ",
             "keyColor": "34"
         },
         {
             "type": "kernel",
-            "key": "  ",
+            "key": " ",
             "keyColor": "34"
         },
         {
             "type": "packages",
-            "key": "  󰏖",
+            "key": "󰏖 ",
             "keyColor": "34"
         },
         {
             "type": "wm",
-            "key": "  ",
+            "key": " ",
             "keyColor": "34"
         },
         {
             "type": "terminal",
-            "key": "  ",
+            "key": " ",
             "keyColor": "34"
         },
         {
             "type": "memory",
-            "key": "  󰍛",
+            "key": "󰍛 ",
             "keyColor": "34"
         },
         {
             "type": "uptime",
-            "key": "  󱎫",
+            "key": "󱎫 ",
             "keyColor": "34"
         },
         "break",

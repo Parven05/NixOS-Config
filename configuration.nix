@@ -103,6 +103,10 @@
       zoxide
     ]
     ++ (with pkgs.gnomeExtensions; [
+      auto-move-windows
+      ideapad
+      just-perfection
+      workspace-indicator
       blur-my-shell
       burn-my-windows
       compiz-alike-magic-lamp-effect

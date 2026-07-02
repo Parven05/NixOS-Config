@@ -14,7 +14,11 @@
     enable = true;
 
     interactiveShellInit = ''
-      zoxide init fish | source
+        zoxide init fish | source
+
+      if test "$TERM" = "xterm-kitty"
+        fastfetch
+      end
     '';
 
     shellAliases = {
@@ -31,4 +35,5 @@
   };
 
   home.file.".config/kitty".source = ./config/kitty;
+  home.file.".config/fastfetch".source = ./config/fastfetch;
 }
