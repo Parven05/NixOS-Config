@@ -16,7 +16,7 @@ Opinionated NixOS Flake Config
 
 # Usage
 
-- **[nh](https://github.com/nix-community/nh)** = rebuild/clean CLI wrapper, aliased to `build`/`clean`
+- **[nh](https://github.com/nix-community/nh)** = rebuild / clean CLI wrapper, aliased to `build`/`clean`
 - **[fish](https://github.com/fish-shell/fish-shell)** = default shell, with zoxide, fastfetch, eza, bat
 - **[Home Manager](https://wiki.nixos.org/wiki/Home_Manager)** = per-user configs, symlinks kitty / fastfetch dotfiles
 - **[stylix](https://github.com/danth/stylix)** = system-wide base16 dark theme
