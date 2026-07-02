@@ -7,7 +7,6 @@
 Opinionated NixOS Flake Config
 </h3>
 
-
 # Usage
 
 - **[nh](https://github.com/nix-community/nh)** = rebuild / clean CLI wrapper, aliased to `build`/`clean`
