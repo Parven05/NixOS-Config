@@ -14,7 +14,7 @@
     enable = true;
 
     interactiveShellInit = ''
-        zoxide init fish | source
+      zoxide init fish | source
 
       if test "$TERM" = "xterm-kitty"
         fastfetch
