@@ -12,10 +12,21 @@
 
   programs.fish = {
     enable = true;
+
+    interactiveShellInit = ''
+      zoxide init fish | source
+    '';
+
     shellAliases = {
+      # system alias
       btw = "echo i use nixos, btw";
       build = "nh os switch /home/parven/dotfiles";
       clean = "nh clean all";
+      # tools alias
+      ls = "eza --icons --group-directories-first";
+      ll = "eza -l --icons --group-directories-first";
+      la = "eza -a --icons --group-directories-first";
+      cat = "bat";
     };
   };
 
