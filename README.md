@@ -1,10 +1,12 @@
 # Pi Nix
-Opinionated NixOS Flake Config
 
 <p align="center">
 <img width="246" height="246" alt="pi-nix" src="https://github.com/user-attachments/assets/faceaec5-349b-4307-be0b-34a3ad3fb7b0" />
 </p>
 
+<h3 align="center">
+Opinionated NixOS Flake Config
+</h3>
 
 # Usage
 
