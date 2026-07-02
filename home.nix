@@ -17,4 +17,6 @@
       build = "sudo nixos-rebuild switch --flake ~/dotfiles#nixos";
     };
   };
+
+  home.file.".config/kitty".source = ./config/kitty;
 }
