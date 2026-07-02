@@ -54,14 +54,6 @@ Enabled system wide as the default shell, then configured with [zoxide](https://
 
 ## [Home Manager](https://wiki.nixos.org/wiki/Home_Manager)
 ```nix
-home-manager = {
-  useGlobalPkgs = true;
-  useUserPackages = true;
-  users.parven = import ./home.nix;
-  backupFileExtension = "backup";
-};
-```
-```nix
 home.file.".config/kitty".source = ./config/kitty;
 home.file.".config/fastfetch".source = ./config/fastfetch;
 ```
