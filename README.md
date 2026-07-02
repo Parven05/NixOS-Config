@@ -105,7 +105,7 @@ environment.systemPackages = with pkgs; [
 ];
 ```
 Installed as a package but needs an editor extension to hook it up. For VSCode, install [Nix IDE](https://github.com/nix-community/vscode-nix-ide)
-For other editors like Neovim, see [nixfmt with nixd](https://github.com/NixOS/nixfmt#neovim--nixd).
+For other editors like Neovim, see [this](https://github.com/NixOS/nixfmt#neovim--nixd).
 
 <img width="701" height="681" alt="image" src="https://github.com/user-attachments/assets/aef4b164-3ae9-4628-9833-6102fac57d87" />
 
