@@ -57,7 +57,7 @@ Enabled system wide as the default shell, then configured with [zoxide](https://
 home.file.".config/kitty".source = ./config/kitty;
 home.file.".config/fastfetch".source = ./config/fastfetch;
 ```
-Shares the system `pkgs` for faster builds and safer rebuilds. `home.nix` sets git identity and symlinks kitty and fastfetch configs into `~/.config`.
+`home.nix` sets git identity and symlinks kitty and fastfetch configs into `~/.config`.
 
 ## [stylix](https://github.com/danth/stylix)
 ```nix
