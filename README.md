@@ -33,10 +33,6 @@ Sets the flake path in `configuration.nix` so `nh os switch` needs no args, and 
 
 ## [fish](https://github.com/fish-shell/fish-shell)
 ```nix
-programs.fish.enable = true;
-users.users.parven.shell = pkgs.fish;
-```
-```nix
 programs.fish = {
   enable = true;
   interactiveShellInit = ''
@@ -53,7 +49,7 @@ programs.fish = {
   };
 };
 ```
-Enabled system wide as the default shell, then configured per user with [zoxide](https://github.com/ajeetdsouza/zoxidehttps://github.com/ajeetdsouza/zoxide) init, fastfetch on Kitty launch, and [eza](https://github.com/eza-community/eza), [bat](https://github.com/sharkdp/bat) aliases.
+Enabled system wide as the default shell, then configured with [zoxide](https://github.com/ajeetdsouza/zoxidehttps://github.com/ajeetdsouza/zoxide) init, fastfetch on Kitty launch, and [eza](https://github.com/eza-community/eza), [bat](https://github.com/sharkdp/bat) aliases.
 
 <img width="1195" height="658" alt="fish shell" src="https://github.com/user-attachments/assets/fb14f7a7-1c0f-4480-aed3-184d4be4e9d2" />
 
