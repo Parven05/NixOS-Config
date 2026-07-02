@@ -14,7 +14,8 @@
     enable = true;
     shellAliases = {
       btw = "echo i use nixos, btw";
-      build = "sudo nixos-rebuild switch --flake ~/dotfiles#nixos";
+      build = "nh os switch /home/parven/dotfiles";
+      clean = "nh clean all";
     };
   };
 

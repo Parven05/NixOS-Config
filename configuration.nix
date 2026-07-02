@@ -1,9 +1,13 @@
-{ config, lib, pkgs, ... }:
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -19,7 +23,7 @@
 
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
-  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.excludePackages = [ pkgs.xterm ];
   services.displayManager.autoLogin = {
     enable = true;
     user = "parven";
@@ -33,9 +37,20 @@
 
   # Remove unnecessary GNOME apps
   environment.gnome.excludePackages = with pkgs; [
-    epiphany yelp totem geary seahorse snapshot
-    gnome-tour gnome-contacts gnome-maps gnome-weather 
-    gnome-music gnome-characters gnome-software gnome-connections
+    epiphany
+    yelp
+    totem
+    geary
+    seahorse
+    snapshot
+    gnome-tour
+    gnome-contacts
+    gnome-maps
+    gnome-weather
+    gnome-music
+    gnome-characters
+    gnome-software
+    gnome-connections
   ];
 
   services.printing.enable = true;
@@ -51,7 +66,12 @@
   users.users.parven = {
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "networkmanager" "video" "bluetooth"];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "bluetooth"
+    ];
     packages = with pkgs; [
       tree
     ];
@@ -59,32 +79,36 @@
 
   programs.firefox.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    wget
-    git
-    kitty
-    discord
-    vlc
-    obs-studio
-    fastfetch
-    gnome-tweaks
-    gnome-extension-manager
-    vscode
-    btop
-    cmake
-    gnumake
-    glib.dev
-    zig
-  ] ++ (with pkgs.gnomeExtensions; [
-    blur-my-shell
-    burn-my-windows
-    compiz-alike-magic-lamp-effect
-    compiz-windows-effect
-    dash2dock-lite
-    search-light
-    tray-icons-reloaded
-    user-themes
-  ]);
+  environment.systemPackages =
+    with pkgs;
+    [
+      wget
+      git
+      kitty
+      discord
+      vlc
+      obs-studio
+      fastfetch
+      gnome-tweaks
+      gnome-extension-manager
+      vscode
+      btop
+      cmake
+      gnumake
+      glib.dev
+      zig
+      nixfmt
+    ]
+    ++ (with pkgs.gnomeExtensions; [
+      blur-my-shell
+      burn-my-windows
+      compiz-alike-magic-lamp-effect
+      compiz-windows-effect
+      dash2dock-lite
+      search-light
+      tray-icons-reloaded
+      user-themes
+    ]);
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-33.4.11"
@@ -124,8 +148,10 @@
     flake = "/home/parven/dotfiles";
   };
 
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "26.05";
 }
