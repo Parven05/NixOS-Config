@@ -9,7 +9,7 @@ Opinionated NixOS Flake Config
 
 # Usage
 
-- **[nh](https://github.com/nix-community/nh)** = rebuild / clean CLI wrapper, aliased to `build`/`clean`
+- **[nh](https://github.com/nix-community/nh)** = helper utility for nix, aliased to `build`/`clean`
 - **[fish](https://github.com/fish-shell/fish-shell)** = default shell, with zoxide, fastfetch, eza, bat
 - **[Home Manager](https://wiki.nixos.org/wiki/Home_Manager)** = per-user configs, symlinks kitty / fastfetch dotfiles
 - **[stylix](https://github.com/danth/stylix)** = system-wide base16 dark theme
@@ -71,7 +71,7 @@ stylix.base16Scheme = {
   # ...
 };
 ```
-Applies a custom base16 dark scheme system wide to every Stylix aware app. Kitty, fastfetch, and btop are themed through Stylix targets.
+Applies a custom base16 dark scheme system wide to every stylix aware app. Kitty, fastfetch, and btop are themed through Stylix targets.
 
 <img width="1920" height="1080" alt="stylix theme" src="https://github.com/user-attachments/assets/17be5da8-83ac-46d3-83a5-5329566a958d" />
 
