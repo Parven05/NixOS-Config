@@ -8,6 +8,12 @@
 Opinionated NixOS Flake Config
 </h3>
 
+# Looks
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/817160a1-2bdb-43ad-8f6c-73f6815b9d21" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9a3b6a97-38a5-4430-b50d-c210a1b4edc3" />
+
+
 # Usage
 
 ## [nh](https://github.com/nix-community/nh)
