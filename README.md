@@ -1,17 +1,11 @@
 # Pi Nix
 
-<p align="center">
-<img width="246" height="246" alt="Pi-nix" src="https://github.com/user-attachments/assets/4651e2dc-f392-45db-aa03-b3960e476b78" />
-</p>
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/817160a1-2bdb-43ad-8f6c-73f6815b9d21" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9a3b6a97-38a5-4430-b50d-c210a1b4edc3" />
 
 <h3 align="center">
 Opinionated NixOS Flake Config
 </h3>
-
-# Looks
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/817160a1-2bdb-43ad-8f6c-73f6815b9d21" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9a3b6a97-38a5-4430-b50d-c210a1b4edc3" />
 
 
 # Usage
