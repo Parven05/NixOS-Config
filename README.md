@@ -71,7 +71,7 @@ stylix.base16Scheme = {
   # ...
 };
 ```
-Applies a custom base16 dark scheme system wide to every stylix aware app. Kitty, fastfetch, and btop are themed through Stylix targets.
+Applies a custom base16 dark scheme system wide to every stylix aware app. Kitty, fastfetch, btop, gtk apps are themed through stylix targets.
 
 <img width="1920" height="1080" alt="stylix theme" src="https://github.com/user-attachments/assets/17be5da8-83ac-46d3-83a5-5329566a958d" />
 
