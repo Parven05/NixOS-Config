@@ -16,6 +16,14 @@ Opinionated NixOS Flake Config
 
 # Usage
 
+- **[nh](https://github.com/nix-community/nh)** = rebuild/clean CLI wrapper, aliased to `build`/`clean`
+- **[fish](https://github.com/fish-shell/fish-shell)** = default shell, with zoxide, fastfetch, eza, bat
+- **[Home Manager](https://wiki.nixos.org/wiki/Home_Manager)** = per-user configs, symlinks kitty / fastfetch dotfiles
+- **[stylix](https://github.com/danth/stylix)** = system-wide base16 dark theme
+- **[direnv](https://github.com/direnv/direnv)** = cached per-directory dev shells
+- **[nixfmt](https://github.com/NixOS/nixfmt)** = Nix file formatter (needs editor hookup)
+- **[starship](https://starship.rs/)** = minimal shell prompt
+
 ## [nh](https://github.com/nix-community/nh)
 ```nix
 programs.nh = {
@@ -25,11 +33,11 @@ programs.nh = {
   flake = "/home/parven/dotfiles";
 };
 ```
-Sets the flake path in `configuration.nix` so `nh os switch` needs no args, and auto cleans old generations, keeping the last 4 days or 3 generations. Aliased as `build` and `clean` in Fish.
+Sets the flake path in `configuration.nix` so `nh os switch` needs no args, and auto cleans old generations, keeping the last 4 days or 3 generations. Aliased as `build` and `clean` in fish.
 
 <img width="1195" height="658" alt="nh rebuild" src="https://github.com/user-attachments/assets/bd55db83-79ff-4adb-8885-de4dd7ff5d0c" />
 
-## fish
+## [fish](https://github.com/fish-shell/fish-shell)
 ```nix
 programs.fish.enable = true;
 users.users.parven.shell = pkgs.fish;
@@ -55,7 +63,7 @@ Enabled system wide as the default shell, then configured per user with [zoxide]
 
 <img width="1195" height="658" alt="fish shell" src="https://github.com/user-attachments/assets/fb14f7a7-1c0f-4480-aed3-184d4be4e9d2" />
 
-## Home Manager
+## [Home Manager](https://wiki.nixos.org/wiki/Home_Manager)
 ```nix
 home-manager = {
   useGlobalPkgs = true;
