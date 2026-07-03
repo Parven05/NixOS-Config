@@ -93,14 +93,18 @@
       gnome-extension-manager
       vscode
       btop
-      cmake
-      gnumake
-      glib.dev
-      zig
       nixfmt
       eza
       bat
       zoxide
+
+      # Dev packages
+      cmake
+      gnumake
+      glib.dev
+      zig
+      devenv
+
     ]
     ++ (with pkgs.gnomeExtensions; [
       auto-move-windows
