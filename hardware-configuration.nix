@@ -10,7 +10,9 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  # Boot & Kernel Configuration
+  # ------------------------------------------------------------------
+  # Boot & kernel
+  # ------------------------------------------------------------------
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
@@ -22,11 +24,14 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  # ------------------------------------------------------------------
   # Filesystems
+  # ------------------------------------------------------------------
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/be189333-910d-49c7-aa51-08c3e0384191";
     fsType = "ext4";
   };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/8873-2FE1";
     fsType = "vfat";
@@ -35,27 +40,33 @@
       "dmask=0077"
     ];
   };
+
   swapDevices = [ ];
 
-  # Platform & Firmware
+  # ------------------------------------------------------------------
+  # Platform & firmware
+  # ------------------------------------------------------------------
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  # NVIDIA
+  # ------------------------------------------------------------------
+  # Graphics — Intel/NVIDIA Prime offload
+  # ------------------------------------------------------------------
   services.xserver.videoDrivers = [ "nvidia" ];
+
   hardware.nvidia = {
     modesetting.enable = true;
+    powerManagement.enable = false;
+    open = false; # proprietary driver
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+
     prime = {
       offload.enable = true;
       offload.enableOffloadCmd = true;
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
-
-    powerManagement.enable = false;
-    open = false; # Use proprietary driver
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   hardware.graphics = {
@@ -68,12 +79,16 @@
 
   services.switcherooControl.enable = true;
 
-  # Power Management
+  # ------------------------------------------------------------------
+  # Power management
+  # ------------------------------------------------------------------
   services.power-profiles-daemon.enable = false;
   services.auto-cpufreq.enable = true;
-  powerManagement.powertop.enable = true;
   services.thermald.enable = lib.mkDefault true;
+  powerManagement.powertop.enable = true;
 
+  # ------------------------------------------------------------------
   # Networking
+  # ------------------------------------------------------------------
   networking.useDHCP = lib.mkDefault true;
 }

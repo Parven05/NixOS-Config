@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 let
@@ -15,16 +16,26 @@ let
   };
 in
 {
+  imports = [ inputs.nixcord.homeModules.nixcord ];
+
   home.username = "parven";
   home.homeDirectory = "/home/parven";
   home.stateVersion = "26.05";
 
+  # ------------------------------------------------------------------
+  # Git
+  # ------------------------------------------------------------------
   programs.git = {
     enable = true;
-    userName = "Parven05";
-    userEmail = "parven5@proton.me";
+    settings = {
+      user.name = "Parven05";
+      user.email = "parven5@proton.me";
+    };
   };
 
+  # ------------------------------------------------------------------
+  # Shell
+  # ------------------------------------------------------------------
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -46,7 +57,9 @@ in
     };
   };
 
-  # GNOME settings
+  # ------------------------------------------------------------------
+  # GNOME / GTK
+  # ------------------------------------------------------------------
   gtk = {
     enable = true;
     iconTheme = {
@@ -69,13 +82,11 @@ in
         "just-perfection-desktop@just-perfection"
         "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
         "ideapad@laurento.frittella"
-        "impatience@gfxmonk.net"
         "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
         "dash2dock-lite@icedman.github.com"
       ];
     };
 
-    # settings
     "org/gnome/desktop/interface" = {
       enable-hot-corners = false;
     };
@@ -95,7 +106,6 @@ in
 
     # keybindings
     "org/gnome/desktop/wm/keybindings" = {
-      # navigation
       switch-to-workspace-left = [ "<Alt>q" ];
       switch-to-workspace-right = [ "<Alt>e" ];
       move-to-workspace-left = [ "<Alt>w" ];
@@ -103,7 +113,6 @@ in
     };
 
     "org/gnome/shell/keybindings" = {
-      # screenshot
       show-screenshot-ui = [ "<Shift><Super>s" ];
     };
 
@@ -176,7 +185,6 @@ in
 
     # compiz-windows-effect
     "org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect" = {
-      # subtle
       friction = 1.5;
       mass = 80.0;
       speedup-factor-divider = 6.0;
@@ -197,35 +205,40 @@ in
     search-light
     tray-icons-reloaded
     user-themes
-    impatience
   ];
 
-  # vscode
+  # ------------------------------------------------------------------
+  # VS Code
+  # ------------------------------------------------------------------
   programs.vscode = {
     enable = true;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      jnoortheen.nix-ide
-      pkief.material-icon-theme
-      ritwickdey.liveserver
-      usernamehw.errorlens
-      zhuangtongfa.material-theme
-      ziglang.vscode-zig
-    ];
+    profiles.default = {
+      extensions = with pkgs.vscode-extensions; [
+        jnoortheen.nix-ide
+        pkief.material-icon-theme
+        ritwickdey.liveserver
+        usernamehw.errorlens
+        zhuangtongfa.material-theme
+        ziglang.vscode-zig
+      ];
 
-    userSettings = {
-      "window.menuBarVisibility" = "toggle";
-      "workbench.colorTheme" = "Stylix";
-      "window.commandCenter" = false;
-      "chat.disableAIFeatures" = true;
-      "editor.fontSize" = lib.mkForce 16;
-      "workbench.iconTheme" = "material-icon-theme";
-      "terminal.external.linuxExec" = "kitty";
-      "explorer.confirmDelete" = false;
-      "explorer.confirmDragAndDrop" = false;
+      userSettings = {
+        "window.menuBarVisibility" = "toggle";
+        "workbench.colorTheme" = "Stylix";
+        "window.commandCenter" = false;
+        "chat.disableAIFeatures" = true;
+        "editor.fontSize" = lib.mkDefault 16;
+        "workbench.iconTheme" = "material-icon-theme";
+        "terminal.external.linuxExec" = "kitty";
+        "explorer.confirmDelete" = false;
+        "explorer.confirmDragAndDrop" = false;
+      };
     };
   };
 
-  # firefox
+  # ------------------------------------------------------------------
+  # Firefox
+  # ------------------------------------------------------------------
   programs.firefox = {
     enable = true;
     policies = {
@@ -243,21 +256,18 @@ in
       ExtensionSettings = {
         "*".installation_mode = "blocked";
 
-        # ublock origin
         "uBlock0@raymondhill.net" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
           installation_mode = "force_installed";
         };
 
-        # proton vpn
         "vpn@proton.ch" = {
-          install_url = "http://addons.mozilla.org/firefox/downloads/latest/proton-vpn/latest.xpi";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-vpn/latest.xpi";
           installation_mode = "force_installed";
         };
 
-        # proton pass
         "78272b6fa58f4a1abaac99321d503a20@proton.me" = {
-          install_url = "http://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi";
           installation_mode = "force_installed";
         };
       };
@@ -270,6 +280,26 @@ in
     };
   };
 
+  # ------------------------------------------------------------------
+  # Nixcord
+  # ------------------------------------------------------------------
+  programs.nixcord = {
+    enable = true;
+    discord.equicord.enable = true;
+
+    config.plugins = {
+      hideMedia.enable = true;
+    };
+  };
+
+  stylix.targets.nixcord = {
+    enable = true;
+    colors.enable = true;
+  };
+
+  # ------------------------------------------------------------------
+  # Configs
+  # ------------------------------------------------------------------
   home.file.".config/kitty".source = ./config/kitty;
   home.file.".config/fastfetch".source = ./config/fastfetch;
 }

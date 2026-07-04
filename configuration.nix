@@ -9,27 +9,34 @@
     ./hardware-configuration.nix
   ];
 
+  # ------------------------------------------------------------------
+  # Boot
+  # ------------------------------------------------------------------
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # ------------------------------------------------------------------
+  # Networking
+  # ------------------------------------------------------------------
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
-
   time.timeZone = "Asia/Kuala_Lumpur";
 
+  # ------------------------------------------------------------------
+  # Desktop environment
+  # ------------------------------------------------------------------
   services.xserver = {
     enable = true;
+    excludePackages = [ pkgs.xterm ];
   };
-
   services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-  services.xserver.excludePackages = [ pkgs.xterm ];
   services.displayManager.autoLogin = {
     enable = true;
     user = "parven";
   };
+  services.desktopManager.gnome.enable = true;
 
-  # Use Kitty as terminal in GNOME extension
+  # Use Kitty as terminal in GNOME's "Open Terminal Here"
   programs.nautilus-open-any-terminal = {
     enable = true;
     terminal = "kitty";
@@ -52,7 +59,10 @@
     gnome-software
     gnome-connections
   ];
-
+  
+  # ------------------------------------------------------------------
+  # Hardware / services
+  # ------------------------------------------------------------------
   services.printing.enable = true;
   services.pipewire = {
     enable = true;
@@ -60,7 +70,11 @@
     alsa.enable = true;
     alsa.support32Bit = true;
   };
+  services.flatpak.enable = true;
 
+  # ------------------------------------------------------------------
+  # Shell / user
+  # ------------------------------------------------------------------
   programs.fish.enable = true;
 
   users.users.parven = {
@@ -77,6 +91,9 @@
     ];
   };
 
+  # ------------------------------------------------------------------
+  # System packages
+  # ------------------------------------------------------------------
   environment.systemPackages = with pkgs; [
     firefox
     wget
@@ -93,7 +110,6 @@
     eza
     bat
     zoxide
-
     # Dev packages
     vscode
     cmake
@@ -101,17 +117,20 @@
     glib.dev
     zig
     devenv
-
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-33.4.11"
   ];
+  nixpkgs.config.allowUnfree = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
 
+  # ------------------------------------------------------------------
+  # Stylix theming
+  # ------------------------------------------------------------------
   stylix.enable = true;
   stylix.image = ./wallpapers/nix-wallpaper-binary-black_8k.png;
   stylix.polarity = "dark";
@@ -134,15 +153,15 @@
     base0F = "a892b8"; # mauve
   };
 
-  services.flatpak.enable = true;
-
+  # ------------------------------------------------------------------
+  # CLI tooling
+  # ------------------------------------------------------------------
   programs.nh = {
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/home/parven/dotfiles";
   };
-
   programs.starship = {
     enable = true;
     settings = {
@@ -150,7 +169,6 @@
       line_break.disabled = true;
     };
   };
-
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -160,6 +178,6 @@
     "nix-command"
     "flakes"
   ];
-  nixpkgs.config.allowUnfree = true;
+
   system.stateVersion = "26.05";
 }
