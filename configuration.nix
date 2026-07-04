@@ -59,7 +59,7 @@
     gnome-software
     gnome-connections
   ];
-  
+
   # ------------------------------------------------------------------
   # Hardware / services
   # ------------------------------------------------------------------
@@ -96,8 +96,6 @@
   # ------------------------------------------------------------------
   environment.systemPackages = with pkgs; [
     firefox
-    wget
-    git
     kitty
     discord
     vlc
@@ -111,12 +109,15 @@
     bat
     zoxide
     # Dev packages
+    wget
+    git
     vscode
     cmake
     gnumake
     glib.dev
     zig
     devenv
+    gitui
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
