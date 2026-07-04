@@ -4,6 +4,16 @@
   lib,
   ...
 }:
+let
+  lock-false = {
+    Value = false;
+    Status = "locked";
+  };
+  lock-true = {
+    Value = true;
+    Status = "locked";
+  };
+in
 {
   home.username = "parven";
   home.homeDirectory = "/home/parven";
@@ -201,9 +211,65 @@
       zhuangtongfa.material-theme
       ziglang.vscode-zig
     ];
+
+    userSettings = {
+      "window.menuBarVisibility" = "toggle";
+      "workbench.colorTheme" = "Stylix";
+      "window.commandCenter" = false;
+      "chat.disableAIFeatures" = true;
+      "editor.fontSize" = lib.mkForce 16;
+      "workbench.iconTheme" = "material-icon-theme";
+      "terminal.external.linuxExec" = "kitty";
+      "explorer.confirmDelete" = false;
+      "explorer.confirmDragAndDrop" = false;
+    };
+  };
+
+  # firefox
+  programs.firefox = {
+    enable = true;
+    policies = {
+      DisableTelemetry = true;
+      DisableFirefoxStudies = true;
+      EnableTrackingProtection = {
+        Value = true;
+        Locked = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+      };
+      DisablePocket = true;
+      DisplayBookmarksToolbar = "always";
+
+      ExtensionSettings = {
+        "*".installation_mode = "blocked";
+
+        # ublock origin
+        "uBlock0@raymondhill.net" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+          installation_mode = "force_installed";
+        };
+
+        # proton vpn
+        "vpn@proton.ch" = {
+          install_url = "http://addons.mozilla.org/firefox/downloads/latest/proton-vpn/latest.xpi";
+          installation_mode = "force_installed";
+        };
+
+        # proton pass
+        "78272b6fa58f4a1abaac99321d503a20@proton.me" = {
+          install_url = "http://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi";
+          installation_mode = "force_installed";
+        };
+      };
+
+      Preferences = {
+        "browser.newtabpage.activity-stream.showSponsored" = lock-false;
+        "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
+      };
+    };
   };
 
   home.file.".config/kitty".source = ./config/kitty;
   home.file.".config/fastfetch".source = ./config/fastfetch;
-
 }
