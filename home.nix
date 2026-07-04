@@ -30,6 +30,7 @@ in
     settings = {
       user.name = "Parven05";
       user.email = "parven5@proton.me";
+      credential.helper = "libsecret";
     };
   };
 
@@ -192,7 +193,13 @@ in
     };
   };
 
-  home.packages = with pkgs.gnomeExtensions; [
+  # ------------------------------------------------------------------
+  # Home Packages
+  # ------------------------------------------------------------------
+  home.packages = [
+    pkgs.libsecret
+  ]
+  ++ (with pkgs.gnomeExtensions; [
     dash2dock-lite
     auto-move-windows
     ideapad
@@ -205,7 +212,7 @@ in
     search-light
     tray-icons-reloaded
     user-themes
-  ];
+  ]);
 
   # ------------------------------------------------------------------
   # VS Code
