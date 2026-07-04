@@ -299,7 +299,7 @@ in
         };
 
         "FirefoxColor@mozilla.com" = {
-          installation_mode = "allowed";
+          installation_mode = "force_installed";
         };
       };
 
