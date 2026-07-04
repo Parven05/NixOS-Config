@@ -89,7 +89,6 @@
     fastfetch
     gnome-tweaks
     gnome-extension-manager
-    vscode
     btop
     nixfmt
     eza
@@ -97,6 +96,7 @@
     zoxide
 
     # Dev packages
+    vscode
     cmake
     gnumake
     glib.dev
