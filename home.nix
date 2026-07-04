@@ -46,7 +46,6 @@
   };
 
   dconf.settings = {
-
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
@@ -114,6 +113,29 @@
         0.0
         6.0
       ];
+    };
+
+    # dash2dock-lite
+    "org/gnome/shell/extensions/dash2dock-lite" = {
+      open-app-animation = true;
+      separator-thickness = 1;
+      dock-padding = 1.0;
+      edge-distance = 1.0;
+      border-radius = 8.0;
+      border-thickness = 1;
+      border-color = lib.hm.gvariant.mkTuple [
+        0.0
+        0.0
+        0.0
+        0.5
+      ];
+      customize-label = true;
+      label-border-radius = 6.0;
+      apps-icon = false;
+      trash-icon = true;
+      downloads-icon = true;
+      animation-magnify = 0.20;
+      animation-spread = 0.23;
     };
 
     # just-perfection
