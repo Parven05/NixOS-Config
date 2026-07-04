@@ -117,22 +117,22 @@
   stylix.image = ./wallpapers/nix-wallpaper-binary-black_8k.png;
   stylix.polarity = "dark";
   stylix.base16Scheme = {
-    base00 = "111418"; # --bg
-    base01 = "181c22"; # slightly lighter bg
-    base02 = "1f242b"; # selection background
-    base03 = "6e7681"; # --muted
-    base04 = "8b97a3"; # --secondary fg
-    base05 = "c9d1d9"; # --tex
-    base06 = "e6e9ed"; # light fg
-    base07 = "f0f2f5"; # --white
+    base00 = "111418"; # near-black
+    base01 = "181c22"; # dark slate
+    base02 = "1f242b"; # charcoal
+    base03 = "6e7681"; # slate gray
+    base04 = "8b97a3"; # cool gray
+    base05 = "c9d1d9"; # light gray
+    base06 = "e6e9ed"; # pale gray
+    base07 = "f0f2f5"; # off-white
     base08 = "be5a55"; # red
     base09 = "be825a"; # orange
-    base0A = "c8aa5a"; # yellow/amber
+    base0A = "c8aa5a"; # amber
     base0B = "6eaa82"; # green
-    base0C = "5aaaaf"; # cyan/teal
+    base0C = "5aaaaf"; # teal
     base0D = "6ea8e0"; # blue
-    base0E = "aa82aa"; # purple/rose
-    base0F = "a892b8"; # magenta-ish
+    base0E = "aa82aa"; # purple
+    base0F = "a892b8"; # mauve
   };
 
   services.flatpak.enable = true;

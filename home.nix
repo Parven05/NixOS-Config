@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   home.username = "parven";
   home.homeDirectory = "/home/parven";
@@ -12,15 +17,12 @@
 
   programs.fish = {
     enable = true;
-
     interactiveShellInit = ''
       zoxide init fish | source
-
       if test "$TERM" = "xterm-kitty"
         fastfetch
       end
     '';
-
     shellAliases = {
       # system alias
       btw = "echo i use nixos, btw";
@@ -34,9 +36,9 @@
     };
   };
 
+  # GNOME settings
   gtk = {
     enable = true;
-
     iconTheme = {
       name = "Fluent";
       package = pkgs.fluent-icon-theme;
@@ -44,7 +46,7 @@
   };
 
   dconf.settings = {
-    # ...
+
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
@@ -62,6 +64,91 @@
         "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
         "dash2dock-lite@icedman.github.com"
       ];
+    };
+
+    # settings
+    "org/gnome/desktop/interface" = {
+      enable-hot-corners = false;
+    };
+
+    "org/gnome/mutter" = {
+      dynamic-workspaces = false;
+      overlay-key = "";
+    };
+
+    "org/gnome/desktop/wm/preferences" = {
+      num-workspaces = 4;
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      help = [ ];
+    };
+
+    # keybindings
+    "org/gnome/desktop/wm/keybindings" = {
+      # navigation
+      switch-to-workspace-left = [ "<Alt>q" ];
+      switch-to-workspace-right = [ "<Alt>e" ];
+      move-to-workspace-left = [ "<Alt>w" ];
+      move-to-workspace-right = [ "<Alt>r" ];
+    };
+
+    "org/gnome/shell/keybindings" = {
+      # screenshot
+      show-screenshot-ui = [ "<Shift><Super>s" ];
+    };
+
+    # search-light
+    "org/gnome/shell/extensions/search-light" = {
+      shortcut-search = [ "<Alt>a" ];
+      border-radius = 7.0;
+      border-color = lib.hm.gvariant.mkTuple [
+        1.0
+        1.0
+        1.0
+        0.5
+      ];
+      background-color = lib.hm.gvariant.mkTuple [
+        0.0
+        0.0
+        0.0
+        6.0
+      ];
+    };
+
+    # just-perfection
+    "org/gnome/shell/extensions/just-perfection" = {
+      activities-button = false;
+      quick-settings-airplane-mode = false;
+      weather = false;
+      events-button = false;
+      search = false;
+      workspace-popup = false;
+      startup-status = 0;
+    };
+
+    # auto-move-windows
+    "org/gnome/shell/extensions/auto-move-windows" = {
+      application-list = [
+        "kitty.desktop:1"
+        "code.desktop:2"
+        "firefox.desktop:3"
+        "discord.desktop:4"
+      ];
+    };
+
+    # compiz-alike-magic-lamp-effect
+    "org/gnome/shell/extensions/com/github/hermes83/compiz-alike-magic-lamp-effect" = {
+      duration = 225.0;
+    };
+
+    # compiz-windows-effect
+    "org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect" = {
+      # subtle
+      friction = 1.5;
+      mass = 80.0;
+      speedup-factor-divider = 6.0;
+      spring-k = 1.0;
     };
   };
 

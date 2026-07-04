@@ -51,11 +51,13 @@
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
+
     powerManagement.enable = false;
     open = false; # Use proprietary driver
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
@@ -63,6 +65,7 @@
       vpl-gpu-rt
     ];
   };
+
   services.switcherooControl.enable = true;
 
   # Power Management
@@ -73,6 +76,4 @@
 
   # Networking
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp12s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 }
