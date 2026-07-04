@@ -232,6 +232,7 @@ in
         "terminal.external.linuxExec" = "kitty";
         "explorer.confirmDelete" = false;
         "explorer.confirmDragAndDrop" = false;
+        "editor.formatOnSave" = true;
       };
     };
   };
@@ -241,6 +242,33 @@ in
   # ------------------------------------------------------------------
   programs.firefox = {
     enable = true;
+
+    profiles.default = {
+      extensions.force = true;
+
+      search = {
+        force = true;
+        default = "Brave Search";
+        engines = {
+          "Brave Search" = {
+            urls = [
+              {
+                template = "https://search.brave.com/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "https://cdn.search.brave.com/serp/v3/static/brand/6a35a988a9c2d9d5c5b8/favicon-32x32.png";
+            definedAliases = [ "@brave" ];
+          };
+        };
+      };
+    };
+
     policies = {
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
@@ -250,25 +278,28 @@ in
         Cryptomining = true;
         Fingerprinting = true;
       };
+
       DisablePocket = true;
       DisplayBookmarksToolbar = "always";
 
       ExtensionSettings = {
-        "*".installation_mode = "blocked";
-
         "uBlock0@raymondhill.net" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-          installation_mode = "force_installed";
-        };
-
-        "vpn@proton.ch" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-vpn/latest.xpi";
           installation_mode = "force_installed";
         };
 
         "78272b6fa58f4a1abaac99321d503a20@proton.me" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi";
           installation_mode = "force_installed";
+        };
+
+        "default-zoom@jamielinux.com" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-zoom/latest.xpi";
+          installation_mode = "force_installed";
+        };
+
+        "FirefoxColor@mozilla.com" = {
+          installation_mode = "allowed";
         };
       };
 
@@ -278,6 +309,12 @@ in
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
       };
     };
+  };
+
+  stylix.targets.firefox = {
+    profileNames = [ "default" ];
+    colorTheme.enable = true;
+    colors.enable = true;
   };
 
   # ------------------------------------------------------------------
