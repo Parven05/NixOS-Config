@@ -79,47 +79,31 @@
 
   programs.firefox.enable = true;
 
-  environment.systemPackages =
-    with pkgs;
-    [
-      wget
-      git
-      kitty
-      discord
-      vlc
-      obs-studio
-      fastfetch
-      gnome-tweaks
-      gnome-extension-manager
-      vscode
-      btop
-      nixfmt
-      eza
-      bat
-      zoxide
+  environment.systemPackages = with pkgs; [
+    wget
+    git
+    kitty
+    discord
+    vlc
+    obs-studio
+    fastfetch
+    gnome-tweaks
+    gnome-extension-manager
+    vscode
+    btop
+    nixfmt
+    eza
+    bat
+    zoxide
 
-      # Dev packages
-      cmake
-      gnumake
-      glib.dev
-      zig
-      devenv
+    # Dev packages
+    cmake
+    gnumake
+    glib.dev
+    zig
+    devenv
 
-    ]
-    ++ (with pkgs.gnomeExtensions; [
-      auto-move-windows
-      ideapad
-      just-perfection
-      workspace-indicator
-      blur-my-shell
-      burn-my-windows
-      compiz-alike-magic-lamp-effect
-      compiz-windows-effect
-      dash2dock-lite
-      search-light
-      tray-icons-reloaded
-      user-themes
-    ]);
+  ];
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-33.4.11"
