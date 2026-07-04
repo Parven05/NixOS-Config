@@ -170,4 +170,7 @@
 
   home.file.".config/kitty".source = ./config/kitty;
   home.file.".config/fastfetch".source = ./config/fastfetch;
+
+  home.file.".config/Code/User/settings.json".source =
+    config.lib.file.mkOutOfStoreSymlink "/home/parven/dotfiles/config/Code/User/settings.json";
 }

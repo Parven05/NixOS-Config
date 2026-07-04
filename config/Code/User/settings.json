@@ -1,0 +1,13 @@
+{
+    "workbench.browser.showInTitleBar": false,
+    "chat.titleBar.openInAgentsWindow.enabled": false,
+    "workbench.navigationControl.enabled": false,
+    "window.commandCenter": false,
+    "window.menuBarVisibility": "toggle",
+    "workbench.colorTheme": "One Dark Pro Night Flat",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.settings.showAISearchToggle": false,
+    "chat.disableAIFeatures": true,
+    "editor.fontSize": 16,
+    "diffEditor.hideUnchangedRegions.enabled": true
+}
