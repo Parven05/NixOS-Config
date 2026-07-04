@@ -10,5 +10,6 @@
     "chat.disableAIFeatures": true,
     "editor.fontSize": 16,
     "diffEditor.hideUnchangedRegions.enabled": true,
-    "git.enableSmartCommit": true
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false
 }
