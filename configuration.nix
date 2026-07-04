@@ -108,6 +108,7 @@
     eza
     bat
     zoxide
+    tmux
     # Dev packages
     wget
     git
