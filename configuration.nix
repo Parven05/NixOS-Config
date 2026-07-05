@@ -16,6 +16,17 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # ------------------------------------------------------------------
+  # Garbage Collection
+  # ------------------------------------------------------------------
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 1d";
+  };
+
+  boot.loader.systemd-boot.configurationLimit = 3;
+
+  # ------------------------------------------------------------------
   # Networking
   # ------------------------------------------------------------------
   networking.hostName = "nixos";
