@@ -16,7 +16,10 @@ let
   };
 in
 {
-  imports = [ inputs.nixcord.homeModules.nixcord ];
+  imports = [
+    inputs.nixcord.homeModules.nixcord
+    inputs.sops-nix.homeManagerModules.sops
+  ];
 
   home.username = "parven";
   home.homeDirectory = "/home/parven";
@@ -28,9 +31,28 @@ in
   programs.ssh = {
     enable = true;
     addKeysToAgent = "yes";
+
+    matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/id_ed25519";
+        identitiesOnly = true;
+      };
+    };
   };
 
   services.ssh-agent.enable = true;
+
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    age.keyFile = "/home/parven/.config/sops/age/keys.txt";
+
+    secrets."ssh_private_key" = {
+      path = "/home/parven/.ssh/id_ed25519";
+      mode = "0600";
+    };
+  };
 
   # ------------------------------------------------------------------
   # Git
@@ -40,8 +62,6 @@ in
     settings = {
       user.name = "Parven05";
       user.email = "parven5@proton.me";
-      credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
-      credential.credentialStore = "secretservice";
     };
   };
 

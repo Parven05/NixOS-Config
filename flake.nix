@@ -8,12 +8,14 @@
     };
     stylix.url = "github:danth/stylix";
     nixcord.url = "github:kaylorben/nixcord";
+    sops-nix.url = "github:Mic92/sops-nix";
   };
   outputs =
     {
       self,
       nixpkgs,
       home-manager,
+      sops-nix,
       stylix,
       ...
     }@inputs:
