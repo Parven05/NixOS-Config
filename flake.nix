@@ -27,6 +27,7 @@
           ./configuration.nix
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
+          sops-nix.nixosModules.sops
           {
             home-manager = {
               useGlobalPkgs = true;

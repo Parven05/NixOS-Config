@@ -44,6 +44,9 @@ in
 
   services.ssh-agent.enable = true;
 
+  # ------------------------------------------------------------------
+  # SOPS
+  # ------------------------------------------------------------------
   sops = {
     defaultSopsFile = ./secrets/secrets.yaml;
     age.keyFile = "/home/parven/.config/sops/age/keys.txt";
