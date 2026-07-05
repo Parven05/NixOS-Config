@@ -30,7 +30,8 @@ in
     settings = {
       user.name = "Parven05";
       user.email = "parven5@proton.me";
-      credential.helper = "libsecret";
+      credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
+      credential.credentialStore = "secretservice";
     };
   };
 
@@ -228,6 +229,7 @@ in
   # ------------------------------------------------------------------
   home.packages = [
     pkgs.libsecret
+    pkgs.git-credential-manager
   ]
   ++ (with pkgs.gnomeExtensions; [
     dash2dock-lite
