@@ -270,6 +270,7 @@ in
         "explorer.confirmDelete" = false;
         "explorer.confirmDragAndDrop" = false;
         "editor.formatOnSave" = true;
+        "task.allowAutomaticTasks" = "on";
       };
     };
   };
