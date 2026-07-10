@@ -92,6 +92,9 @@ in
   # ------------------------------------------------------------------
   programs.fish = {
     enable = true;
+    shellInit = ''
+      set -gx PATH $PATH /home/parven/.local/bin
+    '';
     interactiveShellInit = ''
       zoxide init fish | source
       if test "$TERM" = "xterm-kitty"
@@ -99,11 +102,9 @@ in
       end
     '';
     shellAliases = {
-      # system alias
       btw = "echo i use nixos, btw";
       build = "nh os switch /home/parven/dotfiles";
       clean = "nh clean all";
-      # tools alias
       ls = "eza --icons --group-directories-first";
       ll = "eza -l --icons --group-directories-first";
       la = "eza -a --icons --group-directories-first";
@@ -325,6 +326,9 @@ in
         "explorer.confirmDragAndDrop" = false;
         "editor.formatOnSave" = true;
         "task.allowAutomaticTasks" = "on";
+        "workbench.layoutControl.enabled" = false;
+        "breadcrumbs.enabled" = false;
+        "workbench.sideBar.location" = "right";
       };
     };
   };

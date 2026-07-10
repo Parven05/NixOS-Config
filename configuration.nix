@@ -120,6 +120,8 @@
     bat
     zoxide
     tmux
+    distrobox
+    podman
     # Dev packages
     wget
     git
@@ -185,6 +187,12 @@
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+  };
+
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+    defaultNetwork.settings.dns_enabled = true;
   };
 
   nix.settings.experimental-features = [
