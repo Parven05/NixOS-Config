@@ -7,107 +7,79 @@
 Opinionated NixOS Flake Config
 </h3>
 
-# Usage
+Single flake with Home Manager, stylix, and sops-nix. All modules in `modules/nixos/` and `modules/home/`.
 
-- **[nh](https://github.com/nix-community/nh)** = helper utility for nix, aliased to `build`/`clean`
-- **[fish](https://github.com/fish-shell/fish-shell)** = default shell, with zoxide, fastfetch, eza, bat
-- **[Home Manager](https://wiki.nixos.org/wiki/Home_Manager)** = per-user configs, symlinks kitty / fastfetch dotfiles
-- **[stylix](https://github.com/danth/stylix)** = system-wide base16 dark theme
-- **[direnv](https://github.com/direnv/direnv)** = cached per-directory dev shells
-- **[nixfmt](https://github.com/NixOS/nixfmt)** = Nix file formatter (needs editor hookup)
-- **[starship](https://starship.rs/)** = minimal shell prompt
+---
 
-## [nh](https://github.com/nix-community/nh)
-```nix
-programs.nh = {
-  enable = true;
-  clean.enable = true;
-  clean.extraArgs = "--keep-since 4d --keep 3";
-  flake = "/home/parven/dotfiles";
-};
+## Structure
+
 ```
-Sets the flake path in `configuration.nix` so `nh os switch` needs no args, and auto cleans old generations, keeping the last 4 days or 3 generations. Aliased as `build` and `clean` in fish.
-
-<img width="1195" height="658" alt="nh rebuild" src="https://github.com/user-attachments/assets/bd55db83-79ff-4adb-8885-de4dd7ff5d0c" />
-
-## [fish](https://github.com/fish-shell/fish-shell)
-```nix
-programs.fish = {
-  enable = true;
-  interactiveShellInit = ''
-    zoxide init fish | source
-    if test "$TERM" = "xterm-kitty"
-      fastfetch
-    end
-  '';
-  shellAliases = {
-    build = "nh os switch /home/parven/dotfiles";
-    clean = "nh clean all";
-    ls = "eza --icons --group-directories-first";
-    cat = "bat";
-  };
-};
+dotfiles/
+├── flake.nix
+├── flake.lock
+├── hardware-configuration.nix
+├── config/kitty/
+├── config/fastfetch/
+├── modules/
+│   ├── nixos/    (stylix, cli-tools, nix-core, and hardware config)
+│   └── home/     (fish, tmux, git, ssh, gnome, vscode, firefox, nixcord, sops)
+├── secrets/secrets.yaml
+├── wallpapers/
+└── README.md
 ```
-Enabled system wide as the default shell, then configured with [zoxide](https://github.com/ajeetdsouza/zoxidehttps://github.com/ajeetdsouza/zoxide) init, fastfetch on Kitty launch, and [eza](https://github.com/eza-community/eza), [bat](https://github.com/sharkdp/bat) aliases.
 
-<img width="1195" height="658" alt="fish shell" src="https://github.com/user-attachments/assets/fb14f7a7-1c0f-4480-aed3-184d4be4e9d2" />
+## Nix Tooling
 
-## [Home Manager](https://wiki.nixos.org/wiki/Home_Manager)
-```nix
-home.file.".config/kitty".source = ./config/kitty;
-home.file.".config/fastfetch".source = ./config/fastfetch;
+| Tool | What it does |
+|------|-------------|
+| [nh](https://github.com/nix-community/nh) | Build, switch, and auto-clean generations (keep 4d or 3 gens) |
+| [stylix](https://github.com/danth/stylix) | System wide base16 dark theme, applies to kitty, fastfetch, btop, GTK, Firefox, Discord |
+| [direnv](https://github.com/direnv/direnv) + nix-direnv | Cached per-directory dev shells from flake |
+| [nixfmt](https://github.com/NixOS/nixfmt) | Nix formatter |
+| [sops-nix](https://github.com/Mic92/sops-nix) | Age-encrypted secrets decrypted at boot (SSH key, DeepSeek API key) |
+| [nixcord](https://github.com/kaylorben/nixcord) | Equicord Discord mod with stylix theming |
+| [starship](https://starship.rs/) | Minimal prompt, no blank line |
+
+---
+
+## Nix Config Highlights
+
+- `nix.settings.experimental-features = ["nix-command" "flakes"]`
+- `nix.gc` automatic daily with `--delete-older-than 1d`
+- `nh` flake path set in `configuration.nix` so `nh os switch` needs no args
+- `stylix.base16Scheme` custom dark palette with `#111418` background and `#6ea8e0` accent
+- `stylix.targets` for firefox, nixcord, and all stylix-aware apps
+- `sops.age.keyFile` for Age decryption, secrets mapped to `~/.ssh/id_ed25519` and `~/.config/deepseek/env`
+- `sops-nix` home-manager module for SSH key auto-add via systemd oneshot
+
+---
+
+## Home Manager Modules
+
+- **fish** = zoxide, eza/bat aliases, fastfetch on kitty launch, `DEEPSEEK_API_KEY` from sops env
+- **tmux** = resurrect + continuum auto-save every 15 min
+- **git** = identity set declaratively
+- **ssh** = agent, GitHub match block, key auto-add after sops decrypt
+- **gnome** = 12 extensions via dconf, custom keybindings, auto-move windows to workspaces
+- **vscode** = Nix IDE, Material Icon Theme, Error Lens, format on save
+- **firefox** = Brave Search, uBlock Origin, Proton Pass, telemetry off
+- **nixcord** = Equicord with hideMedia plugin
+
+---
+
+## Quick Start
+
+```bash
+git clone https://github.com/Parven05/dotfiles /home/user/dotfiles
+cd /home/user/dotfiles
+sudo nixos-rebuild switch --flake .#nixos
 ```
-`home.nix` sets git identity and symlinks kitty and fastfetch configs into `~/.config`.
 
-## [stylix](https://github.com/danth/stylix)
-```nix
-stylix.enable = true;
-stylix.image = ./wallpapers/nix-wallpaper-binary-black_8k.png;
-stylix.polarity = "dark";
-stylix.base16Scheme = {
-  base00 = "111418";
-  base05 = "c9d1d9";
-  base0D = "6ea8e0";
-  # ...
-};
+Once booted into the new system, use the aliases:
+
+```bash
+build   # nh os switch /home/user/dotfiles
+clean   # nh clean all
 ```
-Applies a custom base16 dark scheme system wide to every stylix aware app. Kitty, fastfetch, btop, gtk apps are themed through stylix targets.
 
-<img width="1920" height="1080" alt="stylix theme" src="https://github.com/user-attachments/assets/17be5da8-83ac-46d3-83a5-5329566a958d" />
-
-## [direnv](https://github.com/direnv/direnv)
-```nix
-programs.direnv = {
-  enable = true;
-  nix-direnv.enable = true;
-};
-```
-Caches flake dev shell evaluations per directory so `cd` into a project doesn't re-evaluate the whole shell every time.
-
-## [nixfmt](https://github.com/NixOS/nixfmt)
-```nix
-environment.systemPackages = with pkgs; [
-  nixfmt
-  vscode
-];
-```
-Installed as a package but needs an editor extension to hook it up. For VSCode, install [Nix IDE](https://github.com/nix-community/vscode-nix-ide)
-For other editors like Neovim, see [this](https://github.com/NixOS/nixfmt#neovim--nixd).
-
-<img width="701" height="681" alt="image" src="https://github.com/user-attachments/assets/aef4b164-3ae9-4628-9833-6102fac57d87" />
-
-Formatter and syntax highlighting for editing Nix files.
-
-## [starship](https://starship.rs/)
-```nix
-programs.starship = {
-  enable = true;
-  settings = {
-    add_newline = false;
-    line_break.disabled = true;
-  };
-};
-```
-Minimal prompt config, no leading blank line or line break before the prompt.
-
-<img width="1195" height="119" alt="starship prompt" src="https://github.com/user-attachments/assets/6b0b3074-13ff-402f-9c8f-a3f2f1e95df4" />
+---
