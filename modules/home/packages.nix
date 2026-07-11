@@ -1,24 +1,34 @@
 { pkgs, ... }: {
   home.packages = [
+    # security
     pkgs.sops
     pkgs.libsecret
-    pkgs.git-credential-manager
+
+    # development
     pkgs.nodejs
     pkgs.pi-coding-agent
+    pkgs.git-credential-manager
   ]
   ++ (with pkgs.gnomeExtensions; [
+    # dock / workspace
     dash2dock-lite
-    auto-move-windows
-    ideapad
-    just-perfection
     workspace-indicator
+    auto-move-windows
+
+    # animations / effects
     blur-my-shell
     burn-my-windows
     compiz-alike-magic-lamp-effect
     compiz-windows-effect
+
+    # ui tweaks
+    just-perfection
+    user-themes
     search-light
     tray-icons-reloaded
-    user-themes
+
+    # hardware
+    ideapad
   ]);
 
   home.file.".config/kitty".source = ../../config/kitty;

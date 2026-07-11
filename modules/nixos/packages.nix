@@ -1,30 +1,41 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    firefox
-    kitty
-    discord
-    vlc
-    obs-studio
+    # system
+    git
+    wget
     fastfetch
-    gnome-tweaks
-    gnome-extension-manager
+
+    # cli
+    kitty
     btop
-    nixfmt
     eza
     bat
     zoxide
     tmux
-    distrobox
-    podman
-    wget
-    git
+    nixfmt
+    gitui
+
+    # development
     vscode
     cmake
     gnumake
     glib.dev
     zig
     devenv
-    gitui
+
+    # containers
+    distrobox
+    podman
+
+    # media
+    firefox
+    discord
+    vlc
+    obs-studio
+
+    # gnome
+    gnome-tweaks
+    gnome-extension-manager
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
