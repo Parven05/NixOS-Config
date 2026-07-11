@@ -13,7 +13,7 @@
     zoxide
     tmux
     nixfmt
-    gitui
+    lazygit
 
     # development
     vscode
