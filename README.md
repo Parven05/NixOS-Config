@@ -45,8 +45,8 @@ dotfiles/
 ## Quick Start
 
 ```bash
-git clone https://github.com/Parven05/dotfiles
-cd /home/user/dotfiles
+git clone https://github.com/Parven05/Pi-Nix
+cd Pi-Nix
 sudo nixos-rebuild switch --flake .#nixos
 ```
 
