@@ -42,31 +42,6 @@ dotfiles/
 
 ---
 
-## Nix Config Highlights
-
-- `nix.settings.experimental-features = ["nix-command" "flakes"]`
-- `nix.gc` automatic daily with `--delete-older-than 1d`
-- `nh` flake path set in `configuration.nix` so `nh os switch` needs no args
-- `stylix.base16Scheme` custom dark palette with `#111418` background and `#6ea8e0` accent
-- `stylix.targets` for firefox, nixcord, and all stylix-aware apps
-- `sops.age.keyFile` for Age decryption, secrets mapped to `~/.ssh/id_ed25519` and `~/.config/deepseek/env`
-- `sops-nix` home-manager module for SSH key auto-add via systemd oneshot
-
----
-
-## Home Manager Modules
-
-- **fish** = zoxide, eza/bat aliases, fastfetch on kitty launch, `DEEPSEEK_API_KEY` from sops env
-- **tmux** = resurrect + continuum auto-save every 15 min
-- **git** = identity set declaratively
-- **ssh** = agent, GitHub match block, key auto-add after sops decrypt
-- **gnome** = 12 extensions via dconf, custom keybindings, auto-move windows to workspaces
-- **vscode** = Nix IDE, Material Icon Theme, Error Lens, format on save
-- **firefox** = Brave Search, uBlock Origin, Proton Pass, telemetry off
-- **nixcord** = Equicord with hideMedia plugin
-
----
-
 ## Quick Start
 
 ```bash
