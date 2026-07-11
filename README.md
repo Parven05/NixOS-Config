@@ -34,7 +34,7 @@ dotfiles/
 |------|-------------|
 | [nh](https://github.com/nix-community/nh) | Build, switch, and auto-clean generations (keep 4d or 3 gens) |
 | [stylix](https://github.com/danth/stylix) | System wide base16 dark theme, applies to kitty, fastfetch, btop, GTK, Firefox, Discord |
-| [direnv](https://github.com/direnv/direnv) + nix-direnv | Cached per-directory dev shells from flake |
+| [devenv](https://github.com/cachix/devenv) + [direnv](https://github.com/direnv/direnv) | Declarative dev shells via devenv, autoloaded on `cd` via direnv |
 | [nixfmt](https://github.com/NixOS/nixfmt) | Nix formatter |
 | [sops-nix](https://github.com/Mic92/sops-nix) | Age-encrypted secrets decrypted at boot (SSH key, DeepSeek API key) |
 | [nixcord](https://github.com/kaylorben/nixcord) | Equicord Discord mod with stylix theming |
