@@ -4,7 +4,7 @@
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9a3b6a97-38a5-4430-b50d-c210a1b4edc3" />
 
 <h3 align="center">
-Opinionated NixOS Flake Config
+Opinionated NixOS Config
 </h3>
 
 Single flake with Home Manager, stylix, and sops-nix. All modules in `modules/nixos/` and `modules/home/`.
@@ -18,13 +18,44 @@ dotfiles/
 ├── flake.nix
 ├── flake.lock
 ├── hardware-configuration.nix
-├── config/kitty/
-├── config/fastfetch/
+├── .sops.yaml
+├── .gitignore
+├── config/
+│   ├── kitty/kitty.conf
+│   └── fastfetch/
+│       ├── config.jsonc
+│       └── pi.txt
 ├── modules/
-│   ├── nixos/    (stylix, cli-tools, nix-core, and hardware config)
-│   └── home/     (fish, tmux, git, ssh, gnome, vscode, firefox, nixcord, sops)
+│   ├── nixos/
+│   │   ├── boot.nix
+│   │   ├── cli-tools.nix
+│   │   ├── default.nix
+│   │   ├── networking.nix
+│   │   ├── nix-core.nix
+│   │   ├── packages.nix
+│   │   ├── services.nix
+│   │   ├── stylix.nix
+│   │   ├── users.nix
+│   │   ├── virtualization.nix
+│   │   ├── desktop/gnome.nix
+│   │   └── hardware/
+│   │       ├── nvidia.nix
+│   │       └── power.nix
+│   └── home/
+│       ├── default.nix
+│       ├── git.nix
+│       ├── gnome.nix
+│       ├── nixcord.nix
+│       ├── packages.nix
+│       ├── sops.nix
+│       ├── ssh.nix
+│       ├── tmux.nix
+│       ├── browsers/firefox.nix
+│       ├── editors/vscode.nix
+│       └── shell/fish.nix
 ├── secrets/secrets.yaml
 ├── wallpapers/
+│   └── nix-wallpaper-binary-black_8k.png
 └── README.md
 ```
 
