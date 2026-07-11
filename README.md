@@ -45,7 +45,7 @@ dotfiles/
 ## Quick Start
 
 ```bash
-git clone https://github.com/Parven05/dotfiles /home/user/dotfiles
+git clone https://github.com/Parven05/dotfiles
 cd /home/user/dotfiles
 sudo nixos-rebuild switch --flake .#nixos
 ```
