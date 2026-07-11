@@ -50,44 +50,6 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # ------------------------------------------------------------------
-  # Intel/NVIDIA Prime offload
-  # ------------------------------------------------------------------
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    open = false; # proprietary driver
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-    prime = {
-      offload.enable = true;
-      offload.enableOffloadCmd = true;
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
-  };
-
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      vpl-gpu-rt
-    ];
-  };
-
-  services.switcherooControl.enable = true;
-
-  # ------------------------------------------------------------------
-  # Power management
-  # ------------------------------------------------------------------
-  services.power-profiles-daemon.enable = false;
-  services.auto-cpufreq.enable = true;
-  services.thermald.enable = lib.mkDefault true;
-  powerManagement.powertop.enable = true;
-
-  # ------------------------------------------------------------------
   # Networking
   # ------------------------------------------------------------------
   networking.useDHCP = lib.mkDefault true;

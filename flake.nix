@@ -24,7 +24,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ./configuration.nix
+          ./modules/nixos
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
           sops-nix.nixosModules.sops
@@ -33,7 +33,7 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = { inherit inputs; };
-              users.parven = import ./home.nix;
+              users.parven = import ./modules/home;
               backupFileExtension = "backup";
             };
           }
