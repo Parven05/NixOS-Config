@@ -32,6 +32,7 @@
     discord
     vlc
     obs-studio
+    onlyoffice-desktopeditors
 
     # gnome
     gnome-tweaks
