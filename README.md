@@ -16,46 +16,14 @@ Single flake with Home Manager, stylix, and sops-nix. All modules in `modules/ni
 ```
 dotfiles/
 ├── flake.nix
-├── flake.lock
 ├── hardware-configuration.nix
 ├── .sops.yaml
-├── .gitignore
-├── config/
-│   ├── kitty/kitty.conf
-│   └── fastfetch/
-│       ├── config.jsonc
-│       └── pi.txt
+├── config/           # kitty, fastfetch
 ├── modules/
-│   ├── nixos/
-│   │   ├── boot.nix
-│   │   ├── cli-tools.nix
-│   │   ├── default.nix
-│   │   ├── networking.nix
-│   │   ├── nix-core.nix
-│   │   ├── packages.nix
-│   │   ├── services.nix
-│   │   ├── stylix.nix
-│   │   ├── users.nix
-│   │   ├── virtualization.nix
-│   │   ├── desktop/gnome.nix
-│   │   └── hardware/
-│   │       ├── nvidia.nix
-│   │       └── power.nix
-│   └── home/
-│       ├── default.nix
-│       ├── git.nix
-│       ├── gnome.nix
-│       ├── nixcord.nix
-│       ├── packages.nix
-│       ├── sops.nix
-│       ├── ssh.nix
-│       ├── tmux.nix
-│       ├── browsers/firefox.nix
-│       ├── editors/vscode.nix
-│       └── shell/fish.nix
-├── secrets/secrets.yaml
+│   ├── nixos/        # system config (boot, services, users, etc.)
+│   └── home/         # user config (git, shell, editors, etc.)
+├── secrets/
 ├── wallpapers/
-│   └── nix-wallpaper-binary-black_8k.png
 └── README.md
 ```
 
