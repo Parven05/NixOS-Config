@@ -13,6 +13,7 @@
     ./cli-tools.nix
     ./virtualization.nix
     ./gaming.nix
+    ./obs.nix
   ];
 
   nix.settings.experimental-features = [

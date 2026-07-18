@@ -31,7 +31,6 @@
     firefox
     discord
     vlc
-    obs-studio
     onlyoffice-desktopeditors
     pear-desktop
     davinci-resolve

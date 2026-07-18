@@ -21,6 +21,7 @@
     extraPackages = with pkgs; [
       intel-media-driver
       vpl-gpu-rt
+      nvidia-vaapi-driver
     ];
   };
 
