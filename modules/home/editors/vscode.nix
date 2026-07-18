@@ -3,13 +3,23 @@
     enable = true;
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
-        stylix.stylix
-        jnoortheen.nix-ide
-        pkief.material-icon-theme
-        ritwickdey.liveserver
-        usernamehw.errorlens
+        # style
         zhuangtongfa.material-theme
+        pkief.material-icon-theme
+
+        # nix
+        jnoortheen.nix-ide
+
+        # web
+        ritwickdey.liveserver
+
+        # debugging
+        usernamehw.errorlens
+
+        # vscode
         ziglang.vscode-zig
+
+        # python
         ms-python.python
         ms-python.vscode-pylance
         ms-python.vscode-python-envs
@@ -17,20 +27,33 @@
       ];
 
       userSettings = {
-        "window.menuBarVisibility" = "toggle";
-        "workbench.colorTheme" = "Stylix";
+        # window / ui
         "window.commandCenter" = false;
-        "chat.disableAIFeatures" = true;
-        "editor.fontSize" = lib.mkDefault 16;
+        "window.menuBarVisibility" = "toggle";
+        "workbench.layoutControl.enabled" = false;
+        "workbench.sideBar.location" = "right";
+
+        # theme
+        "workbench.colorTheme" = "Stylix";
         "workbench.iconTheme" = "material-icon-theme";
-        "terminal.external.linuxExec" = "kitty";
+
+        # editor
+        "breadcrumbs.enabled" = false;
+        "editor.fontSize" = lib.mkDefault 16;
+        "editor.formatOnSave" = true;
+
+        # xplorer
         "explorer.confirmDelete" = false;
         "explorer.confirmDragAndDrop" = false;
-        "editor.formatOnSave" = true;
+
+        # terminal
+        "terminal.external.linuxExec" = "kitty";
+
+        # AI features
+        "chat.disableAIFeatures" = true;
+
+        # tasks
         "task.allowAutomaticTasks" = "on";
-        "workbench.layoutControl.enabled" = false;
-        "breadcrumbs.enabled" = false;
-        "workbench.sideBar.location" = "right";
       };
     };
   };

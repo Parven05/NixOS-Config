@@ -10,9 +10,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  # ------------------------------------------------------------------
-  # Boot & kernel
-  # ------------------------------------------------------------------
+  # boot & kernel
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
@@ -24,9 +22,7 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  # ------------------------------------------------------------------
-  # Filesystems
-  # ------------------------------------------------------------------
+  # filesystems
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/be189333-910d-49c7-aa51-08c3e0384191";
     fsType = "ext4";
@@ -43,14 +39,10 @@
 
   swapDevices = [ ];
 
-  # ------------------------------------------------------------------
-  # Platform & firmware
-  # ------------------------------------------------------------------
+  # firmware
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  # ------------------------------------------------------------------
-  # Networking
-  # ------------------------------------------------------------------
+  # networking
   networking.useDHCP = lib.mkDefault true;
 }

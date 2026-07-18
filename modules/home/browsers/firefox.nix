@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   lock-false = {
     Value = false;
@@ -64,15 +69,27 @@ in
           installation_mode = "force_installed";
         };
 
+        "myallychou@gmail.com" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-recommended-videos/latest.xpi";
+          installation_mode = "force_installed";
+        };
+
         "FirefoxColor@mozilla.com" = {
           installation_mode = "force_installed";
         };
+
+        "{4fda8782-a3f5-48dc-bbed-c02dd7386ff5}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/original-youtube-audio/latest.xp";
+          installation_mode = "force_installed";
+        };
+
       };
 
       Preferences = {
         "browser.newtabpage.activity-stream.showSponsored" = lock-false;
         "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
+        "browser.newtabpage.activity-stream.logowordmark.alwaysVisible" = lock-false;
       };
     };
   };

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <title>New Tab</title>
+  <style>
+    :root {
+      --bg: #111318;
+      --text: #d4cdc5;
+      --muted: rgb(131, 131, 131);
+      --accent: #7a9aaa;
+      --font: system-ui, -apple-system, Roboto, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 32px;
+    }
+
+    .container {
+      max-width: 820px;
+      width: 100%;
+    }
+
+    .header {
+      text-align: left;
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      font-family: 'Caveat';
+      font-size: 4.5rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 1.2;
+    }
+
+    .header h1 a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header h1 a:hover {
+      color: var(--accent);
+    }
+
+    .header .time {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .category {
+      margin-bottom: 20px;
+    }
+
+    .category-title {
+      font-size: .7rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .links-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .link-item {
+      display: block;
+      padding: 3px 0;
+      color: var(--text);
+      text-decoration: none;
+      font-size: .95rem;
+    }
+
+    .link-item:hover {
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 0 8px;
+      color: var(--muted);
+      font-size: .7rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1><a href="https://parven.me/" target="_blank">Parven</a></h1>
+      <div class="time" id="time"></div>
+    </div>
+
+    <div class="categories">
+
+      <div>
+        <div class="category">
+          <div class="category-title">Personal</div>
+          <div class="links-list">
+            <a class="link-item" href="https://mail.proton.me/u/1/inbox" target="_blank">Proton Mail</a>
+            <a class="link-item"
+              href="https://drive.google.com/drive/folders/1It6W_yEvpRDJouwlXmmOc6iZXCTe0_N7?dmr=1&ec=wgc-drive-%5Bmodule%5D-goto"
+              target="_blank">Google Drive</a>
+            <a class="link-item" href="https://www.youtube.com/feed/subscriptions" target="_blank">YouTube</a>
+            <a class="link-item" href="https://web.telegram.org/a/" target="_blank">Telegram</a>
+            <a class="link-item" href="https://web.whatsapp.com/" target="_blank">WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="category">
+          <div class="category-title">Hosting</div>
+          <div class="links-list">
+            <a class="link-item" href="https://vercel.com/parven05s-projects/parven" target="_blank">Vercel</a>
+            <a class="link-item" href="https://dash.cloudflare.com/fb24e474f72f8c23ed2f28f41e6d15df/workers-and-pages"
+              target="_blank">Cloudflare</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="category">
+          <div class="category-title">Academic</div>
+          <div class="links-list">
+            <a class="link-item" href="https://elearning.unimap.edu.my/" target="_blank">Unimap Elearning</a>
+            <a class="link-item" href="https://osi.unimap.edu.my/OSI_V2/" target="_blank">OSI Unimap</a>
+          </div>
+        </div>
+
+        <div class="category">
+          <div class="category-title">Nix</div>
+          <div class="links-list">
+            <a class="link-item" href="https://search.nixos.org/packages" target="_blank">NixOS Search</a>
+            <a class="link-item" href="https://discourse.nixos.org/" target="_blank">NixOS Forum</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="category">
+          <div class="category-title">AI</div>
+          <div class="links-list">
+            <a class="link-item" href="https://platform.deepseek.com/usage" target="_blank">Deepseek</a>
+            <a class="link-item" href="https://chat.qwen.ai/" target="_blank">Qwen AI</a>
+          </div>
+        </div>
+
+        <div class="category">
+          <div class="category-title">Blog</div>
+          <div class="links-list">
+            <a class="link-item" href="https://stackoverflow.com/" target="_blank">Stack Overflow</a>
+            <a class="link-item" href="https://codeberg.org/ziglings/exercises/#ziglings" target="_blank">Karl Blog</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="category">
+          <div class="category-title">Zig</div>
+          <div class="links-list">
+            <a class="link-item" href="https://ziglang.org/documentation/master/" target="_blank">Zig Docs</a>
+            <a class="link-item" href="https://ziglang.org/documentation/master/std/" target="_blank">Zig std</a>
+            <a class="link-item" href="https://pedropark99.github.io/zig-book/" target="_blank">Zig Book</a>
+            <a class="link-item" href="https://ziggit.dev/" target="_blank">Ziggit</a>
+            <a class="link-item" href="https://zig.guide/" target="_blank">Zig Guide</a>
+            <a class="link-item" href="https://sombriks.com.br/blog/0092-a-zig-overview/" target="_blank">Zig
+              Handbook</a>
+            <a class="link-item" href="https://codeberg.org/ziglings/exercises/#ziglings" target="_blank">Ziglings</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    const timeEl = document.getElementById('time');
+    function updateTime() {
+      const now = new Date();
+      timeEl.textContent = now.toLocaleString('en-US', {
+        weekday: 'long',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+
+</html>
