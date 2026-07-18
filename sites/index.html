@@ -69,6 +69,33 @@
       margin-top: 4px;
     }
 
+    .search-wrap {
+      margin-bottom: 20px;
+    }
+
+    .searchbar {
+      width: 100%;
+      padding: 8px 12px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: .95rem;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .searchbar::placeholder {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .searchbar:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
     .categories {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -122,6 +149,10 @@
     <div class="header">
       <h1><a href="https://parven.me/" target="_blank">Parven</a></h1>
       <div class="time" id="time"></div>
+    </div>
+
+    <div class="search-wrap">
+      <input class="searchbar" id="searchbar" type="text" placeholder="Search Google…" autofocus>
     </div>
 
     <div class="categories">
@@ -220,6 +251,13 @@
     }
     updateTime();
     setInterval(updateTime, 1000);
+
+    const searchbar = document.getElementById('searchbar');
+    searchbar.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && searchbar.value.trim()) {
+        window.location.href = 'https://search.brave.com/search?q=' + encodeURIComponent(searchbar.value.trim());
+      }
+    });
   </script>
 </body>
 
