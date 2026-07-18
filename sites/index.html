@@ -152,7 +152,7 @@
     </div>
 
     <div class="search-wrap">
-      <input class="searchbar" id="searchbar" type="text" placeholder="Search Google…" autofocus>
+      <input class="searchbar" id="searchbar" type="text" placeholder="Search Brave…" autofocus>
     </div>
 
     <div class="categories">
@@ -239,6 +239,9 @@
   </div>
 
   <script>
+    const searchbar = document.getElementById('searchbar');
+    searchbar.focus();
+
     const timeEl = document.getElementById('time');
     function updateTime() {
       const now = new Date();
@@ -252,7 +255,6 @@
     updateTime();
     setInterval(updateTime, 1000);
 
-    const searchbar = document.getElementById('searchbar');
     searchbar.addEventListener('keydown', e => {
       if (e.key === 'Enter' && searchbar.value.trim()) {
         window.location.href = 'https://search.brave.com/search?q=' + encodeURIComponent(searchbar.value.trim());
