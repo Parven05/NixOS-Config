@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   environment.systemPackages = with pkgs; [
     # system
     git
@@ -33,6 +33,8 @@
     vlc
     obs-studio
     onlyoffice-desktopeditors
+    pear-desktop
+    davinci-resolve
 
     # gnome
     gnome-tweaks

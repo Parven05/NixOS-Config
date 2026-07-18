@@ -12,6 +12,7 @@
     ./stylix.nix
     ./cli-tools.nix
     ./virtualization.nix
+    ./gaming.nix
   ];
 
   nix.settings.experimental-features = [
