@@ -20,8 +20,12 @@
     cmake
     gnumake
     glib.dev
-    zig
     devenv
+
+    # languages
+    zig
+    odin
+    ols
 
     # containers
     distrobox

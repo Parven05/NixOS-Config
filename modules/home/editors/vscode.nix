@@ -24,9 +24,15 @@
         ms-python.vscode-pylance
         ms-python.vscode-python-envs
         ms-python.debugpy
+
+        # Odin
+        danielgavin.ols
       ];
 
       userSettings = {
+        "json.schemaDownload.trustedDomains" = {
+          "https://raw.githubusercontent.com/" = true;
+        };
         # window / ui
         "window.commandCenter" = false;
         "window.menuBarVisibility" = "toggle";
@@ -57,6 +63,9 @@
 
         # zig
         "zig.zls.enabled" = "on";
+
+        # odin
+        "ols.server.path" = "/run/current-system/sw/bin/ols";
       };
     };
   };
