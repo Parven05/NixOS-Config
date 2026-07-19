@@ -54,6 +54,9 @@
 
         # tasks
         "task.allowAutomaticTasks" = "on";
+
+        # zig
+        "zig.zls.enabled" = "on";
       };
     };
   };

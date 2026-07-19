@@ -7,7 +7,7 @@
     ./git.nix
     ./shell/fish.nix
     ./tmux.nix
-    ./gnome.nix
+    ./desktop/gnome.nix
     ./editors/vscode.nix
     ./browsers/firefox.nix
     ./nixcord.nix
