@@ -54,37 +54,44 @@ in
       DisplayBookmarksToolbar = "always";
 
       ExtensionSettings = {
+        # ublock origin
         "uBlock0@raymondhill.net" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
           installation_mode = "force_installed";
         };
 
+        # new tab override
         "newtaboverride@agenedia.com" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/new-tab-override/latest.xpi";
           installation_mode = "force_installed";
         };
 
+        # proton pass
         "78272b6fa58f4a1abaac99321d503a20@proton.me" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi";
           installation_mode = "force_installed";
         };
 
+        # default zoom
         "default-zoom@jamielinux.com" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-zoom/latest.xpi";
           installation_mode = "force_installed";
         };
 
+        # youtube recommended videos
         "myallychou@gmail.com" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-recommended-videos/latest.xpi";
           installation_mode = "force_installed";
         };
 
-        "FirefoxColor@mozilla.com" = {
+        # original youtube audio
+        "{4fda8782-a3f5-48dc-bbed-c02dd7386ff5}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/original-youtube-audio/latest.xp";
           installation_mode = "force_installed";
         };
 
-        "{4fda8782-a3f5-48dc-bbed-c02dd7386ff5}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/original-youtube-audio/latest.xp";
+        # firefox color (stylix)
+        "FirefoxColor@mozilla.com" = {
           installation_mode = "force_installed";
         };
 

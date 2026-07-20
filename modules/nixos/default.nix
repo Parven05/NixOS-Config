@@ -6,6 +6,7 @@
     ./desktop/gnome.nix
     ./hardware/nvidia.nix
     ./hardware/power.nix
+    ./audio.nix
     ./services.nix
     ./packages.nix
     ./users.nix
