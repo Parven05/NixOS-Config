@@ -2,10 +2,5 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 3;
-
-  nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 1d";
-  };
+  nix.gc.automatic = true;
 }

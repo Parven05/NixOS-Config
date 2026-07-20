@@ -1,7 +1,8 @@
-{ ... }: {
+{ lib, ... }: {
   stylix.enable = true;
   stylix.image = ../../wallpapers/nix-wallpaper-binary-black_8k.png;
   stylix.polarity = "dark";
+  stylix.targets.qt.platform = lib.mkForce "qtct";
   stylix.base16Scheme = {
     base00 = "111418";
     base01 = "181c22";

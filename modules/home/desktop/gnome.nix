@@ -6,6 +6,11 @@ let
   };
 in
 {
+  qt = {
+    enable = true;
+    platformTheme.name = lib.mkForce "adwaita";
+  };
+
   gtk = {
     enable = true;
     iconTheme = {

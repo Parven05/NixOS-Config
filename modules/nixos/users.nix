@@ -4,7 +4,7 @@
   users.users.parven = {
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = [
+      extraGroups = [
       "wheel"
       "networkmanager"
       "video"
