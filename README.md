@@ -62,16 +62,20 @@ dotfiles/
 | [devenv](https://github.com/cachix/devenv) + [direnv](https://github.com/direnv/direnv) | Declarative dev shells |
 | [sops-nix](https://github.com/Mic92/sops-nix) | Age-encrypted secrets |
 | [nixcord](https://github.com/kaylorben/nixcord) | Equicord Discord mod |
-| [nix-wrapper-modules](https://github.com/BirdeeHub/nix-wrapper-modules) | Wrapped derivations with embedded config |
 
 ## Desktop Switching
 
-Toggle desktop environments by commenting imports in `modules/home/default.nix` and `modules/nixos/default.nix`:
+Toggle desktop environments by changing the `my.desktop` option in `modules/home/default.nix` and `modules/nixos/default.nix`:
 
 ```nix
-(inputs.import-tree ./desktop/gnome)    # ← comment to disable GNOME
-(inputs.import-tree ./desktop/niri)     # ← comment to disable Niri
+# modules/home/default.nix or modules/nixos/default.nix
+{
+  # Option values: "niri" (default), "gnome", or "both"
+  my.desktop = "niri";
+}
 ```
+
+All desktop modules are always imported via `(inputs.import-tree ./desktop)`. Each module checks `config.my.desktop` using `mkIf` to enable only the selected desktop(s).
 
 Each desktop module is self-contained:
 - **GNOME** — full GNOME Shell with extensions, GTK/Qt theming, dconf

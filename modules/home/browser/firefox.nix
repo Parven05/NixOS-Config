@@ -86,7 +86,7 @@ in
 
         # original youtube audio
         "{4fda8782-a3f5-48dc-bbed-c02dd7386ff5}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/original-youtube-audio/latest.xp";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/original-youtube-audio/latest.xpi";
           installation_mode = "force_installed";
         };
 
