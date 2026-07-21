@@ -19,7 +19,7 @@ dotfiles/
 ├── flake-modules/
 │   └── nixos.nix                ← NixOS configuration wiring
 ├── hardware-configuration.nix
-├── config/                      ← kitty, fastfetch, waybar config dirs
+├── config/                      ← kitty, fastfetch, fuzzel, waybar config dirs
 ├── modules/
 │   ├── home/                    ← home-manager modules
 │   │   ├── default.nix          ← only imports + home state
@@ -37,15 +37,16 @@ dotfiles/
 │       ├── desktop/
 │       │   ├── gnome/gnome.nix  ← GDM, GNOME desktop
 │       │   └── niri/niri.nix    ← Niri WM + GDM + Nautilus
-│       ├── hardware/            ← nvidia, power, audio
+│       ├── hardware/            ← nvidia, power, audio, bluetooth
 │       ├── core/                ← boot, networking, packages, users
-│       ├── services/            ← printing, flatpak
-│       ├── shell/               ← nh, starship, direnv
-│       ├── theming/stylix.nix
+│       ├── services/services.nix  ← printing, flatpak
+│       ├── shell/cli-tools.nix    ← nh, starship, direnv
+│       ├── theme/stylix.nix
 │       ├── gaming/steam.nix
 │       ├── media/obs.nix
-│       └── virtualization/podman.nix
+│       └── virtualization/virtualization.nix  ← podman
 ├── secrets/
+├── sites/                      ← new tab page (Brave homepage)
 ├── wallpapers/
 └── README.md
 ```
