@@ -1,17 +1,17 @@
-{ pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+with lib;
+mkIf (config.my.desktop == "niri" || config.my.desktop == "both") {
   programs.niri.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # Use gdm as login manager so niri has a session entry
+  services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
 
-  # Nautilus + terminal integration for file management
   programs.nautilus-open-any-terminal = {
     enable = true;
     terminal = "kitty";
   };
 
-  # Hide GNOME apps that don't belong in a niri session
   environment.gnome.excludePackages = with pkgs; [
     epiphany
     yelp
@@ -28,6 +28,8 @@
     gnome-software
     gnome-connections
   ];
+
+  services.blueman.enable = true;
 
   environment.systemPackages = with pkgs; [
     kitty

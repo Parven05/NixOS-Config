@@ -48,4 +48,9 @@
     nerd-fonts.jetbrains-mono
     noto-fonts
   ];
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 }

@@ -1,8 +1,15 @@
-{ inputs, ... }: {
+{ config, lib, inputs, ... }:
+with lib;
+{
+  options.my.desktop = mkOption {
+    type = types.enum [ "niri" "gnome" "both" ];
+    default = "niri";
+    description = "Desktop environment: niri, gnome, or both";
+  };
+
   imports = [
     ../../hardware-configuration.nix
-    (inputs.import-tree ./desktop/gnome)
-    (inputs.import-tree ./desktop/niri)
+    (inputs.import-tree ./desktop)
     (inputs.import-tree ./hardware)
     (inputs.import-tree ./core)
     (inputs.import-tree ./services)
@@ -13,5 +20,8 @@
     (inputs.import-tree ./media)
   ];
 
-  system.stateVersion = "26.05";
+  config = {
+    my.desktop = mkDefault "niri";
+    system.stateVersion = "26.05";
+  };
 }

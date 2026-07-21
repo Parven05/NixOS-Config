@@ -4,10 +4,10 @@
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9a3b6a97-38a5-4430-b50d-c210a1b4edc3" />
 
 <h3 align="center">
-Opinionated NixOS Config
+Dendritic NixOS Config
 </h3>
 
-Single flake with Home Manager, stylix, and sops-nix. All modules in `modules/nixos/` and `modules/home/`.
+Single flake with Home Manager, stylix, flake-parts, import-tree, and sops-nix. All modules are organized as a tree — drop a `.nix` file in the right folder and it's auto-imported.
 
 ---
 
@@ -15,31 +15,66 @@ Single flake with Home Manager, stylix, and sops-nix. All modules in `modules/ni
 
 ```
 dotfiles/
-├── flake.nix
+├── flake.nix                    ← flake-parts entry point
+├── flake-modules/
+│   └── nixos.nix                ← NixOS configuration wiring
 ├── hardware-configuration.nix
-├── .sops.yaml
-├── config/           # kitty, fastfetch
+├── config/                      ← kitty, fastfetch, waybar config dirs
 ├── modules/
-│   ├── nixos/        # system config (boot, services, users, etc.)
-│   └── home/         # user config (git, shell, editors, etc.)
+│   ├── home/                    ← home-manager modules
+│   │   ├── default.nix          ← only imports + home state
+│   │   ├── desktop/
+│   │   │   ├── gnome/gnome.nix  ← GTK, Qt, dconf, GNOME extensions
+│   │   │   └── niri/niri.nix    ← Niri WM with Wayland tooling
+│   │   ├── browser/firefox.nix
+│   │   ├── editor/vscode.nix
+│   │   ├── shell/               ← fish, tmux, kitty, git
+│   │   ├── security/            ← ssh, sops
+│   │   ├── others/nixcord.nix
+│   │   └── core/packages.nix
+│   └── nixos/                   ← system modules
+│       ├── default.nix          ← only imports + state
+│       ├── desktop/
+│       │   ├── gnome/gnome.nix  ← GDM, GNOME desktop
+│       │   └── niri/niri.nix    ← Niri WM + GDM + Nautilus
+│       ├── hardware/            ← nvidia, power, audio
+│       ├── core/                ← boot, networking, packages, users
+│       ├── services/            ← printing, flatpak
+│       ├── shell/               ← nh, starship, direnv
+│       ├── theming/stylix.nix
+│       ├── gaming/steam.nix
+│       ├── media/obs.nix
+│       └── virtualization/podman.nix
 ├── secrets/
 ├── wallpapers/
 └── README.md
 ```
 
-## Nix Tooling
+## Key Tools
 
 | Tool | What it does |
 |------|-------------|
-| [nh](https://github.com/nix-community/nh) | Build, switch, and auto-clean generations (keep 4d or 3 gens) |
-| [stylix](https://github.com/danth/stylix) | System wide base16 dark theme, applies to kitty, fastfetch, btop, GTK, Firefox, Discord |
-| [devenv](https://github.com/cachix/devenv) + [direnv](https://github.com/direnv/direnv) | Declarative dev shells via devenv, autoloaded on `cd` via direnv |
-| [nixfmt](https://github.com/NixOS/nixfmt) | Nix formatter |
-| [sops-nix](https://github.com/Mic92/sops-nix) | Age-encrypted secrets decrypted at boot (SSH key, DeepSeek API key) |
-| [nixcord](https://github.com/kaylorben/nixcord) | Equicord Discord mod with stylix theming |
-| [starship](https://starship.rs/) | Minimal prompt, no blank line |
+| [flake-parts](https://flake.parts) | Modular flake framework |
+| [import-tree](https://github.com/denful/import-tree) | Auto-discovers `.nix` files in directories |
+| [nh](https://github.com/nix-community/nh) | Build, switch, and auto-clean generations |
+| [stylix](https://github.com/danth/stylix) | System-wide base16 dark theme |
+| [devenv](https://github.com/cachix/devenv) + [direnv](https://github.com/direnv/direnv) | Declarative dev shells |
+| [sops-nix](https://github.com/Mic92/sops-nix) | Age-encrypted secrets |
+| [nixcord](https://github.com/kaylorben/nixcord) | Equicord Discord mod |
+| [nix-wrapper-modules](https://github.com/BirdeeHub/nix-wrapper-modules) | Wrapped derivations with embedded config |
 
----
+## Desktop Switching
+
+Toggle desktop environments by commenting imports in `modules/home/default.nix` and `modules/nixos/default.nix`:
+
+```nix
+(inputs.import-tree ./desktop/gnome)    # ← comment to disable GNOME
+(inputs.import-tree ./desktop/niri)     # ← comment to disable Niri
+```
+
+Each desktop module is self-contained:
+- **GNOME** — full GNOME Shell with extensions, GTK/Qt theming, dconf
+- **Niri** — Niri WM with GDM, Nautilus, GNOME keyring, Wayland tools (grim, slurp, wlogout), brightness control
 
 ## Quick Start
 
@@ -49,10 +84,10 @@ cd Pi-Nix
 sudo nixos-rebuild switch --flake .#nixos
 ```
 
-Once booted into the new system, use the aliases:
+Once booted:
 
 ```bash
-build   # nh os switch /home/user/dotfiles
+build   # nh os switch /home/parven/dotfiles
 clean   # nh clean all
 ```
 

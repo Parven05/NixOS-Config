@@ -1,6 +1,15 @@
-{ config, pkgs, inputs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+with lib;
+{
   imports = [ inputs.niri.homeModules.niri ];
-
+}
+// mkIf (config.my.desktop == "niri" || config.my.desktop == "both") {
   home.packages = with pkgs; [
     grim
     slurp
@@ -11,20 +20,24 @@
     xwayland-satellite
     swaybg
     networkmanagerapplet
+    pavucontrol
     blueman
-    nautilus
   ];
 
-  # GTK theming for native file dialogs and gnome apps
   gtk.enable = true;
 
-  # Secret management for gnome-keyring / libsecret
   services.gnome-keyring.enable = true;
 
   services.mako.enable = true;
   services.swayidle.enable = true;
   programs.swaylock.enable = true;
   programs.waybar.enable = true;
+
+  xdg.configFile."waybar" = {
+    source = ../../../../config/waybar;
+    recursive = true;
+  };
+
   services.polkit-gnome.enable = true;
   programs.fuzzel.enable = true;
 
@@ -52,7 +65,9 @@
       };
       focus-ring = {
         width = 2;
-        active = { color = "rgba(110, 168, 224, 0.5)"; };
+        active = {
+          color = "rgba(110, 168, 224, 0.5)";
+        };
       };
     };
 
@@ -119,8 +134,16 @@
       "Mod+Shift+W".action = spawn "wlogout";
 
       # Brightness
-      "XF86MonBrightnessUp".action = spawn [ "brightnessctl" "set" "+5%" ];
-      "XF86MonBrightnessDown".action = spawn [ "brightnessctl" "set" "5%-" ];
+      "XF86MonBrightnessUp".action = spawn [
+        "brightnessctl"
+        "set"
+        "+5%"
+      ];
+      "XF86MonBrightnessDown".action = spawn [
+        "brightnessctl"
+        "set"
+        "5%-"
+      ];
 
       # Screenshot
       "Print".action = spawn [
@@ -147,6 +170,13 @@
       { command = [ "waybar" ]; }
       { command = [ "mako" ]; }
       { command = [ "nm-applet" ]; }
+      {
+        command = [
+          "bash"
+          "-c"
+          "sleep 2 && bluetoothctl power on"
+        ];
+      }
       { command = [ "blueman-applet" ]; }
       {
         command = [

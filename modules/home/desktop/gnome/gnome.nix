@@ -1,11 +1,6 @@
-{ pkgs, lib, ... }:
-let
-  lock-false = {
-    Value = false;
-    Status = "locked";
-  };
-in
-{
+{ config, lib, pkgs, ... }:
+with lib;
+mkIf (config.my.desktop == "gnome" || config.my.desktop == "both") {
   home.packages = with pkgs; [
     pavucontrol
   ] ++ (with pkgs.gnomeExtensions; [
@@ -49,7 +44,6 @@ in
       ];
     };
 
-    # settings
     "org/gnome/desktop/interface" = {
       enable-hot-corners = false;
     };
@@ -78,7 +72,6 @@ in
       show-screenshot-ui = [ "<Shift><Super>s" ];
     };
 
-    # search light
     "org/gnome/shell/extensions/search-light" = {
       shortcut-search = [ "<Alt>a" ];
       border-radius = 7.0;
@@ -96,7 +89,6 @@ in
       ];
     };
 
-    # dash2dock-lite
     "org/gnome/shell/extensions/dash2dock-lite" = {
       open-app-animation = true;
       separator-thickness = 1;
@@ -119,7 +111,6 @@ in
       animation-spread = 0.23;
     };
 
-    # just-perfection
     "org/gnome/shell/extensions/just-perfection" = {
       activities-button = false;
       quick-settings-airplane-mode = false;
@@ -130,7 +121,6 @@ in
       startup-status = 0;
     };
 
-    # auto-move-windows
     "org/gnome/shell/extensions/auto-move-windows" = {
       application-list = [
         "kitty.desktop:1"
@@ -140,12 +130,10 @@ in
       ];
     };
 
-    # compize-alike-magic-lamp-effect
     "org/gnome/shell/extensions/com/github/hermes83/compiz-alike-magic-lamp-effect" = {
       duration = 225.0;
     };
 
-    # compiz-windows-effect
     "org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect" = {
       friction = 1.5;
       mass = 80.0;

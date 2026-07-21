@@ -1,5 +1,5 @@
 {
-  description = "NixOS — dendritic flake";
+  description = "NixOS";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";

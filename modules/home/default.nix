@@ -1,7 +1,14 @@
-{ inputs, ... }: {
+{ config, lib, inputs, ... }:
+with lib;
+{
+  options.my.desktop = mkOption {
+    type = types.enum [ "niri" "gnome" "both" ];
+    default = "niri";
+    description = "Desktop environment: niri, gnome, or both";
+  };
+
   imports = [
-    (inputs.import-tree ./desktop/gnome)
-    (inputs.import-tree ./desktop/niri)
+    (inputs.import-tree ./desktop)
     (inputs.import-tree ./browser)
     (inputs.import-tree ./editor)
     (inputs.import-tree ./shell)
@@ -10,7 +17,12 @@
     (inputs.import-tree ./core)
   ];
 
-  home.username = "parven";
-  home.homeDirectory = "/home/parven";
-  home.stateVersion = "26.05";
+  config = {
+    my.desktop = mkDefault "niri";
+    home = {
+      username = "parven";
+      homeDirectory = "/home/parven";
+      stateVersion = "26.05";
+    };
+  };
 }

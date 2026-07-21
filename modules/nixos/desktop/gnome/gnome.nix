@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+with lib;
+mkIf (config.my.desktop == "gnome" || config.my.desktop == "both") {
   services.xserver = {
     enable = true;
     excludePackages = [ pkgs.xterm ];
