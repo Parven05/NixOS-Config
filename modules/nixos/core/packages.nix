@@ -31,6 +31,7 @@
     podman
 
     # media
+    sioyek
     firefox
     discord
     vlc

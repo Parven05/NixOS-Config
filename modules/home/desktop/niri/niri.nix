@@ -19,9 +19,8 @@ with lib;
     brightnessctl
     xwayland-satellite
     swaybg
-    networkmanagerapplet
     pavucontrol
-    blueman
+    ashell
   ];
 
   gtk.enable = true;
@@ -31,10 +30,9 @@ with lib;
   services.mako.enable = true;
   services.swayidle.enable = true;
   programs.swaylock.enable = true;
-  programs.waybar.enable = true;
 
-  xdg.configFile."waybar" = {
-    source = ../../../../config/waybar;
+  xdg.configFile."ashell" = {
+    source = ../../../../config/ashell;
     recursive = true;
   };
 
@@ -167,9 +165,8 @@ with lib;
     };
 
     spawn-at-startup = [
-      { command = [ "waybar" ]; }
+      { command = [ "ashell" ]; }
       { command = [ "mako" ]; }
-      { command = [ "nm-applet" ]; }
       {
         command = [
           "bash"
@@ -177,7 +174,6 @@ with lib;
           "sleep 2 && bluetoothctl power on"
         ];
       }
-      { command = [ "blueman-applet" ]; }
       {
         command = [
           "swaybg"

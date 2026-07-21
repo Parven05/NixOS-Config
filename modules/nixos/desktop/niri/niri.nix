@@ -29,7 +29,6 @@ mkIf (config.my.desktop == "niri" || config.my.desktop == "both") {
     gnome-connections
   ];
 
-  services.blueman.enable = true;
 
   environment.systemPackages = with pkgs; [
     kitty
