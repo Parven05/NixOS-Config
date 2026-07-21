@@ -1,27 +1,17 @@
-{ ... }: {
+{ inputs, ... }: {
   imports = [
     ../../hardware-configuration.nix
-    ./boot.nix
-    ./networking.nix
-    ./desktop/gnome.nix
-    ./hardware/nvidia.nix
-    ./hardware/power.nix
-    ./audio.nix
-    ./services.nix
-    ./packages.nix
-    ./users.nix
-    ./stylix.nix
-    ./cli-tools.nix
-    ./virtualization.nix
-    ./gaming.nix
-    ./obs.nix
-  ];
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
+    (inputs.import-tree ./desktop/gnome)
+    (inputs.import-tree ./desktop/niri)
+    (inputs.import-tree ./hardware)
+    (inputs.import-tree ./core)
+    (inputs.import-tree ./services)
+    (inputs.import-tree ./shell)
+    (inputs.import-tree ./virtualization)
+    (inputs.import-tree ./gaming)
+    (inputs.import-tree ./theme)
+    (inputs.import-tree ./media)
   ];
 
   system.stateVersion = "26.05";
-
 }

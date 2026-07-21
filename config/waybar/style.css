@@ -1,0 +1,91 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 15px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(17, 20, 24, 0.85);
+  color: #c9d1d9;
+  border-bottom: 1px solid rgba(110, 118, 129, 0.3);
+}
+
+#workspaces button {
+  padding: 0 6px;
+  color: #6e7681;
+  background: transparent;
+  border-radius: 6px;
+}
+
+#workspaces button.active {
+  color: #6ea8e0;
+  background: rgba(110, 168, 224, 0.15);
+}
+
+#workspaces button.urgent {
+  color: #be5a55;
+  background: rgba(190, 90, 85, 0.15);
+}
+
+#clock,
+#pulseaudio,
+#battery,
+#tray,
+#custom-power {
+  padding: 0 14px;
+  margin: 4px 3px;
+  background: rgba(24, 28, 34, 0.6);
+  border-radius: 6px;
+}
+
+#clock {
+  color: #c9d1d9;
+}
+
+#pulseaudio {
+  color: #6eaa82;
+}
+
+#battery {
+  color: #c8aa5a;
+}
+
+#battery.charging {
+  color: #6eaa82;
+}
+
+#battery.warning:not(.charging) {
+  color: #be825a;
+}
+
+#battery.critical:not(.charging) {
+  color: #be5a55;
+}
+
+#custom-power {
+  color: #be5a55;
+  padding-right: 12px;
+  font-size: 20px;
+}
+
+#tray {
+  background: transparent;
+  padding: 0 8px;
+}
+
+#tray > widget {
+  padding: 0 6px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: rgba(190, 90, 85, 0.2);
+}
+
+

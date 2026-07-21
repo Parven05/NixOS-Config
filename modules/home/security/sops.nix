@@ -1,6 +1,7 @@
-{ ... }: {
+{ inputs, ... }: {
+  imports = [ inputs.sops.homeManagerModules.sops ];
   sops = {
-    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSopsFile = ../../../secrets/secrets.yaml;
     age.keyFile = "/home/parven/.config/sops/age/keys.txt";
 
     secrets."ssh_private_key" = {

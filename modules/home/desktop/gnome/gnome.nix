@@ -6,18 +6,29 @@ let
   };
 in
 {
+  home.packages = with pkgs; [
+    pavucontrol
+  ] ++ (with pkgs.gnomeExtensions; [
+    dash2dock-lite
+    workspace-indicator
+    auto-move-windows
+    blur-my-shell
+    burn-my-windows
+    compiz-alike-magic-lamp-effect
+    compiz-windows-effect
+    just-perfection
+    user-themes
+    search-light
+    tray-icons-reloaded
+    ideapad
+  ]);
+
   qt = {
     enable = true;
     platformTheme.name = lib.mkForce "adwaita";
   };
 
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = "Fluent";
-      package = pkgs.fluent-icon-theme;
-    };
-  };
+  gtk.enable = true;
 
   dconf.settings = {
     "org/gnome/shell" = {

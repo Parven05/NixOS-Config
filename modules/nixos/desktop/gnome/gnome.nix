@@ -4,10 +4,6 @@
     excludePackages = [ pkgs.xterm ];
   };
   services.displayManager.gdm.enable = true;
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "parven";
-  };
   services.desktopManager.gnome.enable = true;
 
   programs.nautilus-open-any-terminal = {
@@ -30,5 +26,10 @@
     gnome-characters
     gnome-software
     gnome-connections
+  ];
+
+  environment.systemPackages = with pkgs; [
+    gnome-tweaks
+    gnome-extension-manager
   ];
 }

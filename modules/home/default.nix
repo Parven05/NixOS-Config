@@ -1,17 +1,13 @@
 { inputs, ... }: {
   imports = [
-    inputs.nixcord.homeModules.nixcord
-    inputs.sops-nix.homeManagerModules.sops
-    ./sops.nix
-    ./ssh.nix
-    ./git.nix
-    ./shell/fish.nix
-    ./tmux.nix
-    ./desktop/gnome.nix
-    ./editors/vscode.nix
-    ./browsers/firefox.nix
-    ./nixcord.nix
-    ./packages.nix
+    (inputs.import-tree ./desktop/gnome)
+    (inputs.import-tree ./desktop/niri)
+    (inputs.import-tree ./browser)
+    (inputs.import-tree ./editor)
+    (inputs.import-tree ./shell)
+    (inputs.import-tree ./security)
+    (inputs.import-tree ./others)
+    (inputs.import-tree ./core)
   ];
 
   home.username = "parven";

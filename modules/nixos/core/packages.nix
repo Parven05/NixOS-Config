@@ -6,7 +6,6 @@
     fastfetch
 
     # cli
-    kitty
     btop
     eza
     bat
@@ -38,10 +37,6 @@
     onlyoffice-desktopeditors
     pear-desktop
     davinci-resolve
-
-    # gnome
-    gnome-tweaks
-    gnome-extension-manager
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
@@ -51,5 +46,6 @@
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    noto-fonts
   ];
 }
