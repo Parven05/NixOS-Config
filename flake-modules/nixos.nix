@@ -3,6 +3,9 @@
     system = "x86_64-linux";
     specialArgs = { inherit inputs; };
     modules = [
+      inputs.disko.nixosModules.disko
+      inputs.preservation.nixosModules.preservation
+      ../disko-config.nix
       ../modules/nixos
       inputs.home-manager.nixosModules.home-manager
       inputs.stylix.nixosModules.stylix

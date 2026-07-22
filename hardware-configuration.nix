@@ -22,22 +22,8 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  # filesystems
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/be189333-910d-49c7-aa51-08c3e0384191";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/8873-2FE1";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
-  };
-
-  swapDevices = [ ];
+  # filesystems are managed by disko (../disko-config.nix)
+  # swap is managed by disko
 
   # firmware
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
