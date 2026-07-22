@@ -45,7 +45,7 @@
                     "noatime"
                     "nodatacow"
                   ];
-                  swap.swapfile.size = "8G";
+                  swap.swapfile.size = "16G";
                 };
               };
             };
@@ -57,7 +57,7 @@
       fsType = "tmpfs";
       mountOptions = [
         "defaults"
-        "size=8G"
+        "size=50%"
         "mode=755"
       ];
     };
