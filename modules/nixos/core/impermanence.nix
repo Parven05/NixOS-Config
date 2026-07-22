@@ -1,4 +1,4 @@
-d{ ... }:
+{ ... }:
 {
   # ── Impermanence via preservation ──────────────────────────────────────
   # / is tmpfs. /persist (btrfs subvol) holds all persistent state.
