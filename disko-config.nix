@@ -46,7 +46,7 @@
 
           # Dedicated Swap Partition
           swap = {
-            size = "4G";
+            size = "16G";
             content = {
               type = "swap";
               resumeDevice = true;
