@@ -1,12 +1,36 @@
+{ ... }:
 {
+  # Ensure critical mounts are ready early during stage 1 boot
+  fileSystems."/nix".neededForBoot = true;
+  fileSystems."/persist".neededForBoot = true;
+
   disko.devices = {
+    nodev."/" = {
+      fsType = "tmpfs";
+      mountOptions = [
+        "defaults"
+        "size=50%"
+        "mode=755"
+      ];
+    };
+
     disk.main = {
       type = "disk";
-      device = "/dev/nvme0n1";
+      device = "/dev/disk/by-id/nvme-INTEL_SSDPEKNW512G8L_BTNH04850Z4N512E";
+
       content = {
         type = "gpt";
         partitions = {
-          ESP = {
+          # Legacy BIOS boot partition (for MBR/BIOS compatibility)
+          boot = {
+            name = "boot";
+            size = "1M";
+            type = "EF02";
+          };
+
+          # EFI System Partition (ESP)
+          esp = {
+            name = "ESP";
             size = "1G";
             type = "EF00";
             content = {
@@ -19,7 +43,19 @@
               ];
             };
           };
+
+          # Dedicated Swap Partition
+          swap = {
+            size = "4G";
+            content = {
+              type = "swap";
+              resumeDevice = true;
+            };
+          };
+
+          # Btrfs Root Partition holding Nix store & Persistent storage
           root = {
+            name = "root";
             size = "100%";
             content = {
               type = "btrfs";
@@ -39,27 +75,11 @@
                     "noatime"
                   ];
                 };
-                "/swap" = {
-                  mountpoint = "/.swapvol";
-                  mountOptions = [
-                    "noatime"
-                    "nodatacow"
-                  ];
-                  swap.swapfile.size = "16G";
-                };
               };
             };
           };
         };
       };
-    };
-    nodev."/" = {
-      fsType = "tmpfs";
-      mountOptions = [
-        "defaults"
-        "size=50%"
-        "mode=755"
-      ];
     };
   };
 }
