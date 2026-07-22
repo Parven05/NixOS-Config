@@ -1,10 +1,11 @@
-{ ... }:
+d{ ... }:
 {
   # ── Impermanence via preservation ──────────────────────────────────────
   # / is tmpfs. /persist (btrfs subvol) holds all persistent state.
   # preservation bind-mounts or symlinks state from /persist into /.
   # Files not listed here are lost on reboot.
-
+  
+  boot.tmp.cleanOnBoot = true;
   preservation.enable = true;
 
   # Required for initrd-based preservation (machine-id, random-seed)
@@ -15,14 +16,18 @@
     directories = [
       "/var/lib/bluetooth"
       "/var/lib/nixos"
-      "/var/lib/systemd/coredump"
+      "/var/lib/systemd"
       "/var/log"
       "/etc/NetworkManager/system-connections"
+      "/tmp"
     ];
 
     files = [
       # Needs to be available very early
-      { file = "/etc/machine-id"; inInitrd = true; }
+      {
+        file = "/etc/machine-id";
+        inInitrd = true;
+      }
 
       # SSH host keys - symlink so sshd creates them on /persist directly
       {
@@ -55,24 +60,15 @@
         ".config"
         ".mozilla"
         ".steam"
-        ".thunderbird"
         ".ssh"
 
-        # Development
-        "Projects"
-        "Downloads"
         "Documents"
         "Pictures"
         "Music"
         "Videos"
-        ".cargo"
-        ".rustup"
-        ".npm"
       ];
 
       files = [
-        ".bash_history"
-        ".zsh_history"
         ".local/share/fish/fish_history"
       ];
     };
@@ -80,7 +76,11 @@
 
   # ── Directories needed on tmpfs that preservation doesn't manage ─────
   systemd.tmpfiles.settings.impermanence-base = {
-    "/var/lib/NetworkManager".d = { mode = "0700"; };
-    "/var/lib/colord".d = { mode = "0755"; };
+    "/var/lib/NetworkManager".d = {
+      mode = "0700";
+    };
+    "/var/lib/colord".d = {
+      mode = "0755";
+    };
   };
 }
