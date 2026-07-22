@@ -14,7 +14,7 @@ let
         exec ${pkgs.rofi}/bin/rofi -show drun -config "$HOME/.config/rofi/appdrawer.rasi"
       '')
       (pkgs.writeShellScriptBin "bgselector" ''
-        wall_dir="$HOME/Pictures/wallpapers"
+        wall_dir="$HOME/dotfiles/wallpapers"
         cache_dir="$HOME/.cache/thumbnails/bgselector"
 
         mkdir -p "$wall_dir"
@@ -34,7 +34,7 @@ let
 
         # Set wallpaper and update waybar color
         if [ -n "$wall_selection" ]; then
-          ${pkgs.swww}/bin/swww img "$wall_dir/$wall_selection" -t grow --transition-duration 1 --transition-fps 75
+          ${pkgs.awww}/bin/awww img "$wall_dir/$wall_selection" -t grow --transition-duration 1 --transition-fps 75
           sleep 0.2
           colorwaybar "$wall_dir/$wall_selection"
           exit 0
@@ -59,20 +59,18 @@ let
         # Write color to css
         echo "@define-color primary $color;" > "$waybar_css"
       '')
-      (pkgs.writeShellScriptBin "overviewlistener" ''
-        exec ${pkgs.niri}/bin/niri msg --json event-stream \
-          | ${pkgs.jq}/bin/jq -c --unbuffered 'select(.OverviewOpenedOrClosed != null)' \
-          | while read -r event; do
-              killall -SIGUSR1 waybar 2>/dev/null || true
-            done
-      '')
-      (pkgs.writeShellScriptBin "powermenu" ''
-        shutdown="$(printf '\uf16f')"
-        reboot="$(printf '\ue5d5')"
-        suspend="$(printf '\uef44')"
-        logout="$(printf '\ue9ba')"
 
-        chosen="$(echo -e "$shutdown\n$reboot\n$suspend\n$logout" | ${pkgs.rofi}/bin/rofi -dmenu -config "$HOME/.config/rofi/powermenu.rasi")"
+      (pkgs.writeShellScriptBin "powermenu" ''
+        shutdown="Shutdown"
+        reboot="Reboot"
+        suspend="Suspend"
+        logout="Logout"
+
+        chosen="$(printf '%s\0icon\x1f%s\n%s\0icon\x1f%s\n%s\0icon\x1f%s\n%s\0icon\x1f%s\n' \
+          "$shutdown" "system-shutdown" \
+          "$reboot" "system-reboot" \
+          "$suspend" "system-suspend" \
+          "$logout" "system-log-out" | ${pkgs.rofi}/bin/rofi -dmenu -config "$HOME/.config/rofi/powermenu.rasi")"
 
         case "$chosen" in
           "$shutdown") ${pkgs.systemd}/bin/poweroff ;;
@@ -136,7 +134,7 @@ in
     waybar
 
     # wallpaper daemon (replaces swaybg)
-    swww
+    awww
 
     # app launcher (replaces fuzzel)
     rofi
@@ -148,7 +146,7 @@ in
     bibata-cursors
 
     # icon theme
-    papirus-icon-theme
+    fluent-icon-theme
 
     # custom scripts
     scriptDir
@@ -156,8 +154,8 @@ in
 
   gtk.enable = true;
   gtk.iconTheme = lib.mkForce {
-    name = "Papirus";
-    package = pkgs.papirus-icon-theme;
+    name = "Fluent";
+    package = pkgs.fluent-icon-theme;
   };
   gtk.cursorTheme = {
     name = "Bibata-Original-Classic";
@@ -216,39 +214,22 @@ in
 
   services.swayidle.events = [
     {
-      events = [ "before-sleep" ];
+      event = "before-sleep";
       command = "${pkgs.swaylock}/bin/swaylock -f";
     }
   ];
 
   # Systemd services for wallpaper daemon and overview listener
-  systemd.user.services.swww = {
+  systemd.user.services.awww = {
     Unit = {
-      Description = "Wallpaper daemon for swww";
+      Description = "Wallpaper daemon for awww";
       PartOf = [ "graphical-session.target" ];
       After = [ "graphical-session.target" ];
       Requisite = [ "graphical-session.target" ];
     };
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.swww}/bin/swww-daemon";
-      Restart = "on-failure";
-    };
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-  };
-
-  systemd.user.services.overviewlistener = {
-    Unit = {
-      Description = "Toggle waybar on niri overview open/close";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-      Requisite = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "simple";
-      ExecStart = "${scriptDir}/bin/overviewlistener";
+      ExecStart = "${pkgs.awww}/bin/awww-daemon";
       Restart = "on-failure";
     };
     Install = {
@@ -358,7 +339,7 @@ in
     layer-rules = [
       {
         matches = [
-          { namespace = "^swww-daemon$"; }
+          { namespace = "^awww-daemon$"; }
         ];
         place-within-backdrop = true;
       }
@@ -369,7 +350,7 @@ in
         matches = [
           { app-id = "^org\\.wezfurlong\\.wezterm$"; }
         ];
-        default-column-width = {};
+        default-column-width = { };
       }
       {
         matches = [
@@ -563,6 +544,7 @@ in
         action = move-column-to-workspace-up;
         cooldown-ms = 150;
       };
+
     };
 
     spawn-at-startup = [
@@ -573,6 +555,13 @@ in
           "bash"
           "-c"
           "sleep 2 && bluetoothctl power on"
+        ];
+      }
+      {
+        command = [
+          "bash"
+          "-c"
+          "sleep 1 && ${pkgs.awww}/bin/awww img \"$HOME/dotfiles/wallpapers/$(ls $HOME/dotfiles/wallpapers | head -1)\" -t grow --transition-duration 1 --transition-fps 75"
         ];
       }
       {

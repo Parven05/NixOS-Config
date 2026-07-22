@@ -1,19 +1,37 @@
 {
-    "layer": "top",
-    "exclusive": false,
-    "start_hidden": true,
-    "reload_style_on_change": true,
-    "margin-top": 233,
-    "modules-center": ["clock", "custom/separator", "battery"],
-    "clock": {
-      "format": " {:%H:%M}"
-    },
-    "battery": {
-      "format": "{icon} {capacity}%",
-      "format-charging": " {capacity}%",
-      "format-icons": ["", "", "", "", ""]
-    },
-    "custom/separator": {
-      "format": "󰇙"
-    }
+  "layer": "top",
+  "exclusive": true,
+  "reload_style_on_change": true,
+  "margin-bottom": 4,
+  "modules-left": [
+    "niri/workspaces",
+    "custom/separator",
+    "niri/window"
+  ],
+  "niri/workspaces": {
+    "format": ""
+  },
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "tray",
+    "custom/separator",
+    "battery"
+  ],
+  "tray": {
+    "icon-size": 16,
+    "spacing": 14
+  },
+  "clock": {
+    "format": " {:%H:%M}"
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "custom/separator": {
+    "format": "󰇙"
+  }
 }

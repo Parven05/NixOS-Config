@@ -4,7 +4,7 @@ configuration {
     matching: "fuzzy";
     sort: true;
     sorting-method: "fzf";
-    icon-theme: "Papirus";
+    icon-theme: "Fluent";
     display-drun: "";
 }
 

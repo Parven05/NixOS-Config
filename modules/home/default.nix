@@ -1,8 +1,17 @@
-{ config, lib, inputs, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 with lib;
 {
   options.my.desktop = mkOption {
-    type = types.enum [ "niri" "gnome" "both" ];
+    type = types.enum [
+      "niri"
+      "gnome"
+      "both"
+    ];
     default = "niri";
     description = "Desktop environment: niri, gnome, or both";
   };

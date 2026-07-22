@@ -1,6 +1,6 @@
 // Global
 * {
-    font: "Material Symbols Rounded 48";
+    font: "Noto Sans 18";
     background-color: transparent;
     text-color: rgba(255, 255, 255, 1);
 }
@@ -14,7 +14,7 @@ window {
 // Main Box
 mainbox {
     enabled: true;
-    padding: 40% 13%;
+    padding: 38% 13%;
     children: ["listview"];
 }
 
@@ -27,11 +27,19 @@ listview {
 }
 element {
     padding: 0.9em;
-    border-radius: 5px;
+    border-radius: 10px;
+    orientation: vertical;
+    children: [element-icon, element-text];
+    spacing: 0.5em;
+}
+element selected {
+    background-color: rgba(32, 32, 32, 0.85);
+}
+element-icon {
+    size: 2.5em;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
 }
 element-text {
     horizontal-align: 0.5;
-}
-element.selected {
-    background-color: rgba(32, 32, 32, 0.85);
 }

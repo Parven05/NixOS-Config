@@ -6,7 +6,49 @@
     background: transparent;
 }
 
+.modules-center {
+    margin: 0;
+}
+
 label.module {
     color: @primary;
     padding: 0 0.25em;
+}
+
+#workspaces button {
+    min-width: 12px;
+    min-height: 12px;
+    border-radius: 2px;
+    background: transparent;
+    border: 2px solid @primary;
+    margin: 0 2px;
+    padding: 0;
+}
+
+#workspaces button.active {
+    background: @primary;
+}
+
+#tray {
+    margin-right: 8px;
+    padding: 0 4px;
+}
+
+#tray * {
+    margin: 0 6px;
+    padding: 0 6px;
+}
+
+#tray *:first-child {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+#tray *:last-child {
+    margin-right: 0;
+    padding-right: 0;
+}
+
+#battery {
+    margin-left: 4px;
 }
