@@ -19,7 +19,7 @@ dotfiles/
 ├── flake-modules/
 │   └── nixos.nix                ← NixOS configuration wiring
 ├── hardware-configuration.nix
-├── config/                      ← kitty, fastfetch, fuzzel, waybar config dirs
+├── config/                      ← kitty, fastfetch, rofi, waybar config dirs
 ├── modules/
 │   ├── home/                    ← home-manager modules
 │   │   ├── default.nix          ← only imports + home state
@@ -79,7 +79,7 @@ All desktop modules are always imported via `(inputs.import-tree ./desktop)`. Ea
 
 Each desktop module is self-contained:
 - **GNOME** — full GNOME Shell with extensions, GTK/Qt theming, dconf
-- **Niri** — Niri WM with GDM, Nautilus, GNOME keyring, Wayland tools (grim, slurp, wlogout), brightness control
+- **Niri** — Niri WM with GDM, waybar bar, swww wallpapers, rofi launcher/bgselector/powermenu, mako notifications
 
 ## Quick Start
 

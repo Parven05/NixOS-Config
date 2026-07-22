@@ -1,0 +1,21 @@
+{
+    "layer": "top",
+    "exclusive": false,
+    "start_hidden": true,
+    "reload_style_on_change": true,
+    "margin-top": 233,
+    "modules-center": ["clock", "custom/separator", "battery"],
+    "clock": {
+      "format": " {:%H:%M}"
+    },
+    "battery": {
+      "format": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-icons": ["", "", "", "", ""]
+    },
+    "custom/separator": {
+      "format": "󰇙"
+    }
+}
+
+
