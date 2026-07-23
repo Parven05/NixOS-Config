@@ -13,7 +13,7 @@
     };
     serif = {
       package = pkgs.nerd-fonts.jetbrains-mono;
-      name = "JetBrainsMono Nerd Font";
+      name = "Noto Sans";
     };
     sizes = {
       applications = 12;

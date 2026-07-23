@@ -32,7 +32,6 @@
 
     # media
     sioyek
-    firefox
     discord
     vlc
     onlyoffice-desktopeditors
@@ -43,13 +42,8 @@
   nixpkgs.config.permittedInsecurePackages = [
     "electron-33.4.11"
   ];
+
   nixpkgs.config.allowUnfree = true;
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    noto-fonts
-  ];
-
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"

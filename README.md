@@ -7,7 +7,7 @@
 Dendritic NixOS Config
 </h3>
 
-Single flake with Home Manager, stylix, flake-parts, import-tree, and sops-nix. All modules are organized as a tree — drop a `.nix` file in the right folder and it's auto-imported.
+Single flake with Home Manager, stylix, flake-parts, import-tree, sops-nix, and disko. All modules are organized as a tree — drop a `.nix` file in the right folder and it's auto-imported.
 
 ---
 
@@ -15,39 +15,92 @@ Single flake with Home Manager, stylix, flake-parts, import-tree, and sops-nix. 
 
 ```
 dotfiles/
-├── flake.nix                    ← flake-parts entry point
+├── flake.nix                         # flake-parts entry point, all inputs
 ├── flake-modules/
-│   └── nixos.nix                ← NixOS configuration wiring
+│   └── nixos.nix                     # NixOS + home-manager wiring
 ├── hardware-configuration.nix
-├── config/                      ← kitty, fastfetch, rofi, waybar config dirs
+├── disko.nix                         # declarative disk partitioning
+├── config/
+│   ├── fastfetch/
+│   │   ├── config.jsonc
+│   │   └── pi.txt                    # ascii art
+│   ├── fuzzel/
+│   │   └── fuzzel.ini                # app launcher theme
+│   ├── kitty/
+│   │   └── kitty.conf
+│   └── waybar/
+│       ├── color.css                 # dynamic color from wallpaper
+│       ├── config.jsonc
+│       └── style.css
 ├── modules/
-│   ├── home/                    ← home-manager modules
-│   │   ├── default.nix          ← only imports + home state
+│   ├── home/                         # home-manager modules
+│   │   ├── default.nix               # imports + home state
+│   │   ├── browser/
+│   │   │   └── helium.nix            # Helium browser (floating PiP)
+│   │   ├── core/
+│   │   │   ├── features.nix          # feature flags (editor, browser, etc.)
+│   │   │   └── packages.nix          # common user packages
 │   │   ├── desktop/
-│   │   │   ├── gnome/gnome.nix  ← GTK, Qt, dconf, GNOME extensions
-│   │   │   └── niri/niri.nix    ← Niri WM with Wayland tooling
-│   │   ├── browser/firefox.nix
-│   │   ├── editor/vscode.nix
-│   │   ├── shell/               ← fish, tmux, kitty, git
-│   │   ├── security/            ← ssh, sops
-│   │   ├── others/nixcord.nix
-│   │   └── core/packages.nix
-│   └── nixos/                   ← system modules
-│       ├── default.nix          ← only imports + state
+│   │   │   └── niri/
+│   │   │       ├── niri.nix          # Niri WM + binds + waybar + mako + swaylock
+│   │   │       └── scripts/
+│   │   │           ├── appdrawer.sh   # fuzzel launcher
+│   │   │           ├── bgselector.sh  # wallpaper picker via fuzzel dmenu
+│   │   │           ├── colorwaybar.sh # set waybar color from wallpaper brightness
+│   │   │           ├── powermenu.sh   # shutdown/reboot/suspend/logout
+│   │   │           └── volumeosd.sh   # volume up/down/mute + notify
+│   │   ├── editor/
+│   │   │   └── vscode.nix            # VS Code
+│   │   ├── others/
+│   │   │   └── nixcord.nix           # Equicord Discord mod
+│   │   ├── security/
+│   │   │   ├── sops.nix              # age-encrypted secrets
+│   │   │   └── ssh.nix               # SSH config
+│   │   └── shell/
+│   │       ├── fish.nix              # Fish shell
+│   │       ├── git.nix               # Git config
+│   │       ├── kitty.nix             # Kitty terminal
+│   │       └── tmux.nix              # Tmux
+│   └── nixos/                        # system modules
+│       ├── default.nix               # imports + state
+│       ├── core/
+│       │   ├── boot.nix              # systemd-boot, kernel
+│       │   ├── features.nix          # system-level feature flags
+│       │   ├── impermanence.nix      # root tmpfs + persistent paths
+│       │   ├── networking.nix        # NetworkManager
+│       │   ├── packages.nix          # system packages
+│       │   └── users.nix             # user accounts
 │       ├── desktop/
-│       │   ├── gnome/gnome.nix  ← GDM, GNOME desktop
-│       │   └── niri/niri.nix    ← Niri WM + GDM + Nautilus
-│       ├── hardware/            ← nvidia, power, audio, bluetooth
-│       ├── core/                ← boot, networking, packages, users
-│       ├── services/services.nix  ← printing, flatpak
-│       ├── shell/cli-tools.nix    ← nh, starship, direnv
-│       ├── theme/stylix.nix
-│       ├── gaming/steam.nix
-│       ├── media/obs.nix
-│       └── virtualization/virtualization.nix  ← podman
+│       │   └── niri/
+│       │       └── niri.nix          # GDM + Niri session
+│       ├── gaming/
+│       │   └── steam.nix
+│       ├── hardware/
+│       │   ├── audio.nix             # PipeWire
+│       │   ├── bluetooth.nix
+│       │   ├── nvidia.nix
+│       │   └── power.nix             # power profiles, tlp
+│       ├── media/
+│       │   └── obs.nix
+│       ├── services/
+│       │   └── services.nix          # printing, flatpak, gnome-keyring
+│       ├── shell/
+│       │   └── cli-tools.nix         # nh, starship, direnv
+│       ├── theme/
+│       │   └── stylix.nix            # base16 system-wide theme
+│       └── virtualization/
+│           └── virtualization.nix    # podman
 ├── secrets/
-├── sites/                      ← new tab page (Brave homepage)
+│   └── secrets.yaml                  # sops-encrypted (ssh key, API keys)
+├── sites/
+│   └── index.html                    # custom new tab page
 ├── wallpapers/
+│   ├── eye.png
+│   ├── hollow.png
+│   ├── mountain.jpg
+│   ├── nixos.png
+│   ├── space.png
+│   └── win.png
 └── README.md
 ```
 
@@ -61,25 +114,29 @@ dotfiles/
 | [stylix](https://github.com/danth/stylix) | System-wide base16 dark theme |
 | [devenv](https://github.com/cachix/devenv) + [direnv](https://github.com/direnv/direnv) | Declarative dev shells |
 | [sops-nix](https://github.com/Mic92/sops-nix) | Age-encrypted secrets |
+| [disko](https://github.com/nix-community/disko) | Declarative disk partitioning |
+| [impermanence](https://github.com/nix-community/impermanence) | Root tmpfs + persistent paths |
 | [nixcord](https://github.com/kaylorben/nixcord) | Equicord Discord mod |
+| [Helium](https://github.com/oxcl/nix-flake-helium-browser) | Floating browser with PiP support |
 
-## Desktop Switching
+## Desktop Stack
 
-Toggle desktop environments by changing the `my.desktop` option in `modules/home/default.nix` and `modules/nixos/default.nix`:
+- **WM**: [Niri](https://github.com/YaLTeR/niri) — scrollable-tiling Wayland compositor
+- **Bar**: [Waybar](https://github.com/Alexays/Waybar) — dynamic colors from wallpaper
+- **Launcher**: [Fuzzel](https://codeberg.org/dnkl/fuzzel) — app launcher + dmenu scripts
+- **Notifications**: [Mako](https://github.com/emersion/mako) — grouped, anchored
+- **Locker**: [Swaylock](https://github.com/swaywm/swaylock)
+- **Wallpaper**: [Awww](https://github.com/nicepkg/awww) — animated transitions
+- **Screenshots**: [Grim](https://sr.ht/~emersion/grim/) + [Slurp](https://github.com/emersion/slurp) + [grimshot](https://github.com/OctopusET/sway-contrib)
 
-```nix
-# modules/home/default.nix or modules/nixos/default.nix
-{
-  # Option values: "niri" (default), "gnome", or "both"
-  my.desktop = "niri";
-}
-```
+### Niri Scripts
 
-All desktop modules are always imported via `(inputs.import-tree ./desktop)`. Each module checks `config.my.desktop` using `mkIf` to enable only the selected desktop(s).
-
-Each desktop module is self-contained:
-- **GNOME** — full GNOME Shell with extensions, GTK/Qt theming, dconf
-- **Niri** — Niri WM with GDM, waybar bar, swww wallpapers, rofi launcher/bgselector/powermenu, mako notifications
+| Script | Binding | Description |
+|--------|---------|-------------|
+| `appdrawer` | `Mod+D` | App launcher |
+| `bgselector` | `Mod+B` | Pick wallpaper from `~/dotfiles/wallpapers/` |
+| `powermenu` | `Mod+P` | Shutdown / reboot / suspend / logout |
+| `volumeosd` | media keys | Volume control with OSD notifications |
 
 ## Quick Start
 

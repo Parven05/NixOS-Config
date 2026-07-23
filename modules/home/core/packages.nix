@@ -7,7 +7,6 @@
     # development
     pkgs.nodejs
     pkgs.pi-coding-agent
-    pkgs.git-credential-manager
 
     # theming
     pkgs.fluent-icon-theme

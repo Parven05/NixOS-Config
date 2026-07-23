@@ -7,13 +7,9 @@
 with lib;
 {
   options.my.desktop = mkOption {
-    type = types.enum [
-      "niri"
-      "gnome"
-      "both"
-    ];
+    type = types.enum [ "niri" ];
     default = "niri";
-    description = "Desktop environment: niri, gnome, or both";
+    description = "Desktop environment: niri";
   };
 
   imports = [
@@ -27,7 +23,7 @@ with lib;
   ];
 
   config = {
-    my.desktop = mkDefault "niri";
+    my.desktop = "niri";
     home = {
       username = "parven";
       homeDirectory = "/home/parven";

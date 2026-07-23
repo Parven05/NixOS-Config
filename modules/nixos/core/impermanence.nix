@@ -1,17 +1,12 @@
 { ... }:
 {
-  # ── Impermanence via preservation ──────────────────────────────────────
-  # / is tmpfs. /persist (btrfs subvol) holds all persistent state.
-  # preservation bind-mounts or symlinks state from /persist into /.
-  # Files not listed here are lost on reboot.
-  
   boot.tmp.cleanOnBoot = true;
   preservation.enable = true;
 
   # Required for initrd-based preservation (machine-id, random-seed)
   boot.initrd.systemd.enable = true;
 
-  # ── System-wide preserved state ───────────────────────────────────────
+  # System-wide preserved state
   preservation.preserveAt."/persist" = {
     directories = [
       "/var/lib/bluetooth"
@@ -52,16 +47,23 @@
 
     users.parven = {
       directories = [
-        # Browser / app data
-        ".cache/nix"
+        # Full cache directory — many apps (Electron, fontconfig, mesa,
+        # Chromium, GTK, etc.) need to write here. Missing cache causes
+        # apps to fail initialization, resulting in floating windows in niri.
+        ".cache"
+
+        # app data
         ".local/share"
         ".local/state"
         ".config"
         ".mozilla"
         ".steam"
         ".ssh"
-	
-	"dotfiles"
+
+        # Fonts persist across reboots
+        ".local/share/fonts"
+
+        "dotfiles"
         "Documents"
         "Pictures"
         "Music"
@@ -74,7 +76,7 @@
     };
   };
 
-  # ── Directories needed on tmpfs that preservation doesn't manage ─────
+  # Directories needed on tmpfs that preservation doesn't manage
   systemd.tmpfiles.settings.impermanence-base = {
     "/var/lib/NetworkManager".d = {
       mode = "0700";
@@ -82,8 +84,11 @@
     "/var/lib/colord".d = {
       mode = "0755";
     };
+    "/etc/NetworkManager".d = {
+      mode = "0755";
+    };
   };
 
-  systemd.suppressedSystemUnits = ["systemd-machine-id-commit.service"];
+  systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
 
 }

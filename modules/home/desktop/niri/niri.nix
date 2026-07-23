@@ -10,111 +10,17 @@ let
   scriptDir = pkgs.symlinkJoin {
     name = "niri-scripts";
     paths = [
-      (pkgs.writeShellScriptBin "appdrawer" ''
-        exec ${pkgs.rofi}/bin/rofi -show drun -config "$HOME/.config/rofi/appdrawer.rasi"
-      '')
-      (pkgs.writeShellScriptBin "bgselector" ''
-        wall_dir="$HOME/dotfiles/wallpapers"
-        cache_dir="$HOME/.cache/thumbnails/bgselector"
-
-        mkdir -p "$wall_dir"
-        mkdir -p "$cache_dir"
-
-        # Generate thumbnails
-        find "$wall_dir" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) | while read -r imagen; do
-          filename="$(basename "$imagen")"
-          thumb="$cache_dir/$filename"
-          if [ ! -f "$thumb" ]; then
-            ${pkgs.imagemagick}/bin/magick convert -strip "$imagen" -thumbnail x540^ -gravity center -extent 262x540 "$thumb"
-          fi
-        done
-
-        # List wallpapers with icons for rofi
-        wall_selection=$(ls "$wall_dir" | while read -r A; do echo -en "$A\x00icon\x1f$cache_dir/$A\n"; done | ${pkgs.rofi}/bin/rofi -dmenu -config "$HOME/.config/rofi/bgselector.rasi")
-
-        # Set wallpaper and update waybar color
-        if [ -n "$wall_selection" ]; then
-          ${pkgs.awww}/bin/awww img "$wall_dir/$wall_selection" -t grow --transition-duration 1 --transition-fps 75
-          sleep 0.2
-          colorwaybar "$wall_dir/$wall_selection"
-          exit 0
-        else
-          exit 1
-        fi
-      '')
-      (pkgs.writeShellScriptBin "colorwaybar" ''
-        image="$1"
-        waybar_css="$HOME/.config/waybar/color.css"
-
-        touch "$waybar_css"
-
-        # Calculate brightness
-        brightness=$(${pkgs.imagemagick}/bin/convert "$image" -resize 500x500^ -format "%[fx:int(mean*100)]" info:)
-        if (( brightness < 48 )); then
-            color="rgba(255,255,255,0.8)"
-        else
-            color="rgba(0,0,0,0.8)"
-        fi
-
-        # Write color to css
-        echo "@define-color primary $color;" > "$waybar_css"
-      '')
-
-      (pkgs.writeShellScriptBin "powermenu" ''
-        shutdown="Shutdown"
-        reboot="Reboot"
-        suspend="Suspend"
-        logout="Logout"
-
-        chosen="$(printf '%s\0icon\x1f%s\n%s\0icon\x1f%s\n%s\0icon\x1f%s\n%s\0icon\x1f%s\n' \
-          "$shutdown" "system-shutdown" \
-          "$reboot" "system-reboot" \
-          "$suspend" "system-suspend" \
-          "$logout" "system-log-out" | ${pkgs.rofi}/bin/rofi -dmenu -config "$HOME/.config/rofi/powermenu.rasi")"
-
-        case "$chosen" in
-          "$shutdown") ${pkgs.systemd}/bin/poweroff ;;
-          "$reboot")   ${pkgs.systemd}/bin/reboot ;;
-          "$suspend")  ${pkgs.systemd}/bin/systemctl suspend ;;
-          "$logout")   ${pkgs.niri}/bin/niri msg action quit ;;
-          *)           exit 0 ;;
-        esac
-      '')
-      (pkgs.writeShellScriptBin "volumeosd" ''
-        step=0.01
-
-        case "$1" in
-            up)
-                ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_SINK@ 0
-                ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_SINK@ "''${step}+"
-                ;;
-            down)
-                ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_SINK@ 0
-                ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_SINK@ "''${step}-"
-                ;;
-            mute)
-                ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_SINK@ toggle
-                ;;
-        esac
-
-        volume=$(${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_SINK@)
-        vol_value=$(echo "$volume" | awk '{print $2 * 100}')
-        vol_status=$(echo "$volume" | cut -d" " -f3)
-
-        if [ "$vol_status" = "[MUTED]" ]; then
-            ${pkgs.libnotify}/bin/notify-send -a "muted" -h int:value:"$vol_value" ""
-            exit 0
-        fi
-
-        ${pkgs.libnotify}/bin/notify-send -a "volume" -h int:value:"$vol_value" ""
-      '')
+      (pkgs.writeShellScriptBin "appdrawer" (builtins.readFile ./scripts/appdrawer.sh))
+      (pkgs.writeShellScriptBin "bgselector" (builtins.readFile ./scripts/bgselector.sh))
+      (pkgs.writeShellScriptBin "colorwaybar" (builtins.readFile ./scripts/colorwaybar.sh))
+      (pkgs.writeShellScriptBin "powermenu" (builtins.readFile ./scripts/powermenu.sh))
+      (pkgs.writeShellScriptBin "volumeosd" (builtins.readFile ./scripts/volumeosd.sh))
     ];
   };
 in
 {
   imports = [ inputs.niri.homeModules.niri ];
-}
-// mkIf (config.my.desktop == "niri" || config.my.desktop == "both") {
+
   home.packages = with pkgs; [
     # screenshot
     grim
@@ -127,17 +33,14 @@ in
     pavucontrol
     playerctl
 
-    # wayland support
-    xwayland-satellite
-
-    # status bar (replaces ashell)
+    # status bar
     waybar
 
-    # wallpaper daemon (replaces swaybg)
+    # wallpaper daemon
     awww
 
-    # app launcher (replaces fuzzel)
-    rofi
+    # app launcher
+    fuzzel
 
     # wallpaper selector
     imagemagick
@@ -247,23 +150,8 @@ in
     source = ../../../../config/waybar/color.css;
   };
 
-  xdg.configFile."rofi/appdrawer.rasi" = {
-    source = ../../../../config/rofi/appdrawer.rasi;
-  };
-  xdg.configFile."rofi/bgselector.rasi" = {
-    source = ../../../../config/rofi/bgselector.rasi;
-  };
-  xdg.configFile."rofi/powermenu.rasi" = {
-    source = ../../../../config/rofi/powermenu.rasi;
-  };
-  xdg.configFile."rofi/themes/appdrawer.rasi" = {
-    source = ../../../../config/rofi/themes/appdrawer.rasi;
-  };
-  xdg.configFile."rofi/themes/bgselector.rasi" = {
-    source = ../../../../config/rofi/themes/bgselector.rasi;
-  };
-  xdg.configFile."rofi/themes/powermenu.rasi" = {
-    source = ../../../../config/rofi/themes/powermenu.rasi;
+  xdg.configFile."fuzzel/fuzzel.ini" = {
+    source = ../../../../config/fuzzel/fuzzel.ini;
   };
 
   home.sessionVariables = {
@@ -291,7 +179,7 @@ in
     prefer-no-csd = true;
 
     layout = {
-      gaps = 0;
+      gaps = 4;
       center-focused-column = "never";
       default-column-width = {
         proportion = 0.5;
@@ -352,16 +240,22 @@ in
         ];
         default-column-width = { };
       }
+
+      # Helium Picture-in-Picture windows should float, not tile.
       {
         matches = [
-          { app-id = "^firefox$"; }
-          { title = "^Picture-in-Picture$"; }
+          {
+            app-id = "^helium$";
+            title = "^Picture-in-Picture$";
+          }
         ];
         open-floating = true;
       }
+
+      # Prevent Helium from opening fullscreen (it sometimes requests it).
       {
         matches = [
-          { app-id = "^org\\.mozilla\\.firefox$"; }
+          { app-id = "^helium$"; }
         ];
         open-fullscreen = false;
       }
