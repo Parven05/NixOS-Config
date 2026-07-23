@@ -1,4 +1,4 @@
-<h3 align="center">Dendritic NixOS Config</h3>
+<h3 align="center">Pi Nix</h3>
 
 Single flake with Home Manager, stylix, flake-parts, import-tree, sops-nix, and disko. Drop a `.nix` file in the right folder and it's auto-imported.
 
