@@ -19,7 +19,6 @@
       "/var/lib/systemd"
       "/var/log"
       "/etc/NetworkManager/system-connections"
-      "/tmp"
     ];
 
     files = [
@@ -61,7 +60,8 @@
         ".mozilla"
         ".steam"
         ".ssh"
-
+	
+	"dotfiles"
         "Documents"
         "Pictures"
         "Music"
@@ -83,4 +83,7 @@
       mode = "0755";
     };
   };
+
+  systemd.suppressedSystemUnits = ["systemd-machine-id-commit.service"];
+
 }
