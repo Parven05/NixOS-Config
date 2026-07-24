@@ -1,5 +1,7 @@
 # Pi Nix
 
+<img width="1920" height="1079" alt="image" src="https://github.com/user-attachments/assets/d8de2491-2969-456e-9432-bdc52c893408" />
+
 Personal NixOS configuration. Single flake with Home Manager, flake-parts, and auto-imported modules.
 
 ## Components
