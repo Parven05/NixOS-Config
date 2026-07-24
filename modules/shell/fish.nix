@@ -28,7 +28,7 @@ in
     '';
     shellAliases = {
       btw = "echo i use nixos, btw";
-      build = "nh os switch /home/${user}/dotfiles";
+      build = "nh os switch /home/${user}/Pi-Nix";
       clean = "nh clean all";
       ls = "eza --icons --group-directories-first";
       ll = "eza -l --icons --group-directories-first";

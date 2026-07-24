@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-wall_dir="$HOME/dotfiles/wallpapers"
+wall_dir="$HOME/Pi-Nix/wallpapers"
 cache_file="$HOME/.cache/current-wallpaper"
 mkdir -p "$wall_dir"
 mkdir -p "$(dirname "$cache_file")"

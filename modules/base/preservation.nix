@@ -52,7 +52,7 @@ in
         ".steam"
         ".ssh"
         ".local/share/fonts"
-        "dotfiles"
+        "Pi-Nix"
         "Documents"
         "Pictures"
         "Music"

@@ -221,5 +221,5 @@ binds {
 spawn-at-startup "quickshell"
 spawn-at-startup "mako"
 spawn-sh-at-startup "sleep 2 && bluetoothctl power on"
-spawn-sh-at-startup "sleep 1 && WALLPAPER_CACHE=\"$HOME/.cache/current-wallpaper\"; if [ -f \"$WALLPAPER_CACHE\" ] && [ -f \"$(cat $WALLPAPER_CACHE)\" ]; then awww img \"$(cat $WALLPAPER_CACHE)\" -t grow --transition-duration 1 --transition-fps 75; else awww img \"$HOME/dotfiles/wallpapers/$(ls $HOME/dotfiles/wallpapers | head -1)\" -t grow --transition-duration 1 --transition-fps 75; fi"
+spawn-sh-at-startup "sleep 1 && WALLPAPER_CACHE=\"$HOME/.cache/current-wallpaper\"; if [ -f \"$WALLPAPER_CACHE\" ] && [ -f \"$(cat $WALLPAPER_CACHE)\" ]; then awww img \"$(cat $WALLPAPER_CACHE)\" -t grow --transition-duration 1 --transition-fps 75; else awww img \"$HOME/Pi-Nix/wallpapers/$(ls $HOME/Pi-Nix/wallpapers | head -1)\" -t grow --transition-duration 1 --transition-fps 75; fi"
 spawn-sh-at-startup "swayidle -w timeout 300 'swaylock' timeout 600 'niri msg action power-off-monitors' resume 'niri msg action power-on-monitors'"

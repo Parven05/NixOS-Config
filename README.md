@@ -39,6 +39,6 @@ sudo nixos-rebuild switch --flake .#nixos
 Once booted:
 
 ```bash
-build   # nh os switch /home/parven/dotfiles
+build   # nh os switch /home/parven/Pi-Nix
 clean   # nh clean all
 ```
