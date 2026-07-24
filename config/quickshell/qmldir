@@ -1,0 +1,4 @@
+singleton GlobalConfig 1.0 GlobalConfig.qml
+singleton PopupManager 1.0 PopupManager.qml
+singleton PopupConfig 1.0 PopupConfig.qml
+Bar 1.0 Bar.qml

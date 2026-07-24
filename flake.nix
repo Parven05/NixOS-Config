@@ -1,5 +1,5 @@
 {
-  description = "NixOS";
+  description = "NixOS dotfiles — parven's personal infrastructure";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -17,13 +17,12 @@
       url = "github:denful/import-tree";
     };
 
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
+    pkgs-by-name-for-flake-parts = {
+      url = "github:drupol/pkgs-by-name-for-flake-parts";
     };
 
-    nixcord = {
-      url = "github:kaylorben/nixcord";
+    stylix = {
+      url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -50,6 +49,17 @@
     preservation = {
       url = "github:nix-community/preservation";
     };
+
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    qml-niri = {
+      url = "github:imiric/qml-niri/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.quickshell.follows = "quickshell";
+    };
   };
 
   outputs =
@@ -59,6 +69,7 @@
 
       imports = [
         (inputs.import-tree ./flake-modules)
+        inputs.pkgs-by-name-for-flake-parts.flakeModule
       ];
     };
 }

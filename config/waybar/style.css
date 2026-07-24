@@ -3,52 +3,185 @@
 * {
     font-family: "JetBrainsMono Nerd Font";
     font-weight: bold;
-    background: transparent;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
 }
 
-.modules-center {
-    margin: 0;
-}
-
-label.module {
-    color: @primary;
-    padding: 0 0.25em;
-}
-
-#workspaces button {
-    min-width: 12px;
-    min-height: 12px;
-    border-radius: 2px;
-    background: transparent;
-    border: 2px solid @primary;
-    margin: 0 2px;
+/* ── Bar ────────────────────────────────────── */
+window#waybar {
+    background: alpha(@bg, 0.92);
+    color: @fg;
+    border-bottom: 1px solid alpha(@bg-surface, 0.6);
     padding: 0;
 }
 
-#workspaces button.active {
-    background: @primary;
-}
-
-#tray {
-    margin-right: 8px;
-    padding: 0 4px;
-}
-
-#tray * {
-    margin: 0 6px;
+/* ── Modules container ──────────────────────── */
+.modules-left,
+.modules-center,
+.modules-right {
     padding: 0 6px;
 }
 
-#tray *:first-child {
+/* ── Generic module label ───────────────────── */
+label.module,
+#custom-* {
+    color: @fg;
+    padding: 0 8px;
+    margin: 0 2px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+}
+
+label.module:hover,
+#custom-*:hover {
+    background: alpha(@bg-surface, 0.6);
+    color: @fg-bright;
+}
+
+/* ── Workspaces ─────────────────────────────── */
+#workspaces {
+    padding: 0 4px;
+}
+
+#workspaces button {
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 10px;
+    background: alpha(@fg-dim, 0.35);
+    border: none;
+    margin: 0 3px;
+    padding: 0;
+    transition: all 0.15s ease;
+}
+
+#workspaces button:hover {
+    background: alpha(@fg-muted, 0.5);
+}
+
+#workspaces button.active {
+    background: @accent;
+    min-width: 24px;
+}
+
+#workspaces button.empty {
+    background: alpha(@fg-dim, 0.2);
+}
+
+#workspaces button.urgent {
+    background: @critical;
+}
+
+/* ── Window title ───────────────────────────── */
+#window {
+    color: @fg-muted;
+    font-weight: normal;
+    padding: 0 8px;
+}
+
+/* ── Clock ──────────────────────────────────── */
+#clock {
+    color: @fg-bright;
+    padding: 0 10px;
+    font-weight: bold;
+}
+
+/* ── System tray ────────────────────────────── */
+#tray {
+    margin: 0 4px;
+    padding: 0 6px;
+    border-radius: 6px;
+}
+
+#tray > * {
+    margin: 0 4px;
+    padding: 0 4px;
+    min-width: 20px;
+}
+
+#tray > *:first-child {
     margin-left: 0;
     padding-left: 0;
 }
 
-#tray *:last-child {
+#tray > *:last-child {
     margin-right: 0;
     padding-right: 0;
 }
 
+/* ── PulseAudio ─────────────────────────────── */
+#pulseaudio {
+    padding: 0 8px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+
+#pulseaudio:hover {
+    background: alpha(@bg-surface, 0.6);
+    color: @accent;
+}
+
+#pulseaudio.muted {
+    color: @fg-dim;
+}
+
+/* ── Battery ────────────────────────────────── */
 #battery {
-    margin-left: 4px;
+    padding: 0 8px;
+    border-radius: 6px;
+}
+
+#battery:hover {
+    background: alpha(@bg-surface, 0.6);
+}
+
+#battery.warning:not(.charging) {
+    color: @warning;
+}
+
+#battery.critical:not(.charging) {
+    color: @critical;
+}
+
+#battery.charging {
+    color: @success;
+}
+
+/* ── Backlight ──────────────────────────────── */
+#backlight {
+    padding: 0 8px;
+}
+
+/* ── Custom launcher / menu ─────────────────── */
+#custom-launcher,
+#custom-menu {
+    color: @accent;
+    font-size: 16px;
+    padding: 0 10px 0 6px;
+}
+
+/* ── Custom power / exit ────────────────────── */
+#custom-power,
+#custom-exit {
+    color: @fg-muted;
+    padding: 0 10px 0 4px;
+}
+
+#custom-power:hover,
+#custom-exit:hover {
+    color: @critical;
+}
+
+/* ── Tooltip ────────────────────────────────── */
+tooltip {
+    background: @bg-alt;
+    border: 1px solid @bg-surface;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+tooltip label {
+    color: @fg;
+    font-weight: normal;
 }

@@ -1,0 +1,225 @@
+// Niri configuration — KDL format
+// https://niri-wm.github.io/niri/Configuration:-Introduction
+
+input {
+    keyboard {
+        xkb {
+            layout "us"
+        }
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+    }
+
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+output "eDP-1" {
+    scale 1.0
+}
+
+output "HDMI-A-1" {
+    scale 1.0
+}
+
+prefer-no-csd
+
+overview {
+    workspace-shadow {
+        off
+    }
+}
+
+layout {
+    gaps 4
+    center-focused-column "never"
+    default-column-width { proportion 0.5; }
+    background-color "transparent"
+
+    focus-ring {
+        off
+    }
+
+    border {
+        off
+    }
+
+    shadow {
+        on
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+// Hide awww-daemon layer-shell window behind backdrop
+layer-rule {
+    match namespace=r#"^awww-daemon$"#
+    place-within-backdrop true
+}
+
+// WezTerm: override default column width
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+// Helium PiP: float
+window-rule {
+    match app-id=r#"^helium$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+// Helium: prevent fullscreen
+window-rule {
+    match app-id=r#"^helium$"#
+    open-fullscreen false
+}
+
+cursor {
+    xcursor-theme "Bibata-Original-Classic"
+    hide-after-inactive-ms 3000
+}
+
+environment {
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+}
+
+// ── Binds ─────────────────────────────────────────────────────
+
+binds {
+    Mod+T { spawn "kitty"; }
+    Mod+D { spawn "appdrawer"; }
+    Mod+P { spawn "powermenu"; }
+    Mod+B { spawn "bgselector"; }
+
+    Mod+Q repeat=false { close-window; }
+    Mod+Shift+Q repeat=false { close-window; }
+    Mod+Shift+E { quit; }
+
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+    Mod+Right { focus-column-right; }
+
+    Mod+Ctrl+H     { move-column-left; }
+    Mod+Ctrl+J     { move-window-down; }
+    Mod+Ctrl+K     { move-window-up; }
+    Mod+Ctrl+L     { move-column-right; }
+    Mod+Ctrl+Left  { move-column-left; }
+    Mod+Ctrl+Down  { move-window-down; }
+    Mod+Ctrl+Up    { move-window-up; }
+    Mod+Ctrl+Right { move-column-right; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+
+    Mod+F { fullscreen-window; }
+    Mod+Shift+F { toggle-window-floating; }
+
+    Mod+Comma  { consume-window-into-column; }
+    Mod+Period { expel-window-from-column; }
+    Mod+Shift+Period { focus-column-right; }
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+
+    Mod+Minus { set-column-width "50%"; }
+    Mod+Equal { reset-window-height; }
+
+    Mod+R       { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+
+    Mod+Shift+X  { spawn "swaylock"; }
+    Super+Alt+L  { spawn "swaylock"; }
+
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "+5%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
+
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_SINK@ 0 && wpctl set-volume @DEFAULT_SINK@ 0.01+"
+    }
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_SINK@ 0 && wpctl set-volume @DEFAULT_SINK@ 0.01-"
+    }
+    XF86AudioMute allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_SINK@ toggle"
+    }
+    XF86AudioMicMute allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    }
+
+    XF86AudioPlay  { spawn-sh "playerctl play-pause"; }
+    XF86AudioPause { spawn-sh "playerctl play-pause"; }
+    XF86AudioStop  { spawn-sh "playerctl stop"; }
+    XF86AudioPrev  { spawn-sh "playerctl previous"; }
+    XF86AudioNext  { spawn-sh "playerctl next"; }
+
+    Print       { spawn "grimshot" "--notify" "copy" "screen"; }
+    Mod+Shift+S { spawn "grimshot" "--notify" "copy" "area"; }
+    Alt+Print   { spawn "grimshot" "--notify" "copy" "window"; }
+
+    Mod+Tab  { focus-workspace-previous; }
+    Mod+U    { focus-workspace-down; }
+    Mod+I    { focus-workspace-up; }
+    Mod+Home { focus-column-first; }
+    Mod+End  { focus-column-last; }
+
+    Mod+Shift+U { move-workspace-up; }
+    Mod+Shift+I { move-workspace-down; }
+
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+End  { move-column-to-last; }
+
+    Mod+Shift+Left  { focus-monitor-left; }
+    Mod+Shift+Down  { focus-monitor-down; }
+    Mod+Shift+Up    { focus-monitor-up; }
+    Mod+Shift+Right { focus-monitor-right; }
+
+    Mod+M { maximize-column; }
+    Mod+W { toggle-column-tabbed-display; }
+    Mod+V { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+
+    Mod+C       { center-column; }
+    Mod+Ctrl+C  { center-visible-columns; }
+    Mod+Ctrl+F  { expand-column-to-available-width; }
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    Mod+O repeat=false { toggle-overview; }
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    Mod+Shift+P { power-off-monitors; }
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+}
+
+// ── Startup ───────────────────────────────────────────────────
+
+spawn-at-startup "quickshell"
+spawn-at-startup "mako"
+spawn-sh-at-startup "sleep 2 && bluetoothctl power on"
+spawn-sh-at-startup "sleep 1 && WALLPAPER_CACHE=\"$HOME/.cache/current-wallpaper\"; if [ -f \"$WALLPAPER_CACHE\" ] && [ -f \"$(cat $WALLPAPER_CACHE)\" ]; then awww img \"$(cat $WALLPAPER_CACHE)\" -t grow --transition-duration 1 --transition-fps 75; else awww img \"$HOME/dotfiles/wallpapers/$(ls $HOME/dotfiles/wallpapers | head -1)\" -t grow --transition-duration 1 --transition-fps 75; fi"
+spawn-sh-at-startup "swayidle -w timeout 300 'swaylock' timeout 600 'niri msg action power-off-monitors' resume 'niri msg action power-on-monitors'"
