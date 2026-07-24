@@ -1,22 +1,32 @@
-<h3 align="center">Pi Nix</h3>
+# Pi Nix
 
-Single flake with Home Manager, stylix, flake-parts, import-tree, sops-nix, and disko. Drop a `.nix` file in the right folder and it's auto-imported.
+Personal NixOS configuration. Single flake with Home Manager, flake-parts, and auto-imported modules.
 
-## Stack
+## Components
 
-**Niri** scrollable-tiling Wayland compositor, **Waybar** with dynamic wallpaper colors, **Fuzzel** app launcher and dmenu scripts, **Mako** notifications, **Swaylock** screen locker, **Awww** animated wallpapers, **Grim + Slurp** screenshots.
+- **Niri** scrollable-tiling Wayland compositor with **Waybar**
+- **Quickshell** custom bar and popup widgets
+- **Fuzzel** launcher, **Mako** notifications, **Swaylock** screen lock
+- **Awww** animated wallpapers
+- **Stylix** Base16 theming across all apps
+- **Fish** shell with Starship prompt, **Kitty** terminal, **Tmux**
+- **Yazi** file manager, **Fastfetch** system info
 
-## Key Tools
+## Infrastructure
 
 | Tool | Purpose |
 |------|---------|
 | [flake-parts](https://flake.parts) | Modular flake framework |
+| [Home Manager](https://github.com/nix-community/home-manager) | User environment management |
 | [import-tree](https://github.com/denful/import-tree) | Auto-discover `.nix` files |
-| [nh](https://github.com/nix-community/nh) | Build, switch, clean |
-| [stylix](https://github.com/danth/stylix) | Base16 system theme |
+| [stylix](https://github.com/danth/stylix) | Base16 system-wide theme |
 | [sops-nix](https://github.com/Mic92/sops-nix) | Encrypted secrets |
 | [disko](https://github.com/nix-community/disko) | Declarative disk partitioning |
-| [impermanence](https://github.com/nix-community/impermanence) | Root tmpfs + persistent paths |
+| [preservation](https://github.com/nix-community/preservation) | Persistent files across rebuilds |
+
+## Feature Flags
+
+Toggle in `modules/default.nix`: desktop, gaming, media, virtualization, bluetooth, nvidia.
 
 ## Quick Start
 
